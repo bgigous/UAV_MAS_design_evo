@@ -1,0 +1,2424 @@
+In file included from main.cpp:3:0:
+funcs.hpp:121:36: error: ‘vector’ does not name a type
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                    ^
+funcs.hpp:121:36: error: ISO C++ forbids declaration of ‘parameter’ with no type [-fpermissive]
+funcs.hpp:121:42: error: expected ‘,’ or ‘...’ before ‘<’ token
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                          ^
+funcs.hpp:123:24: error: variable or field ‘write_mat_to_file’ declared void
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                        ^
+funcs.hpp:123:24: error: ‘ofstream’ was not declared in this scope
+funcs.hpp:123:24: note: suggested alternative:
+In file included from /usr/include/c++/4.8/bits/localefwd.h:41:0,
+                 from /usr/include/c++/4.8/string:43,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.hpp:5,
+                 from main.cpp:1:
+/usr/include/c++/4.8/iosfwd:160:34: note:   ‘std::ofstream’
+   typedef basic_ofstream<char>   ofstream;
+                                  ^
+In file included from main.cpp:3:0:
+funcs.hpp:123:35: error: ‘f’ was not declared in this scope
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                   ^
+funcs.hpp:123:46: error: expected primary-expression before ‘mat’
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                              ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:121:36: error: ‘vector’ does not name a type
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                    ^
+funcs.hpp:121:36: error: ISO C++ forbids declaration of ‘parameter’ with no type [-fpermissive]
+funcs.hpp:121:42: error: expected ‘,’ or ‘...’ before ‘<’ token
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                          ^
+funcs.hpp:123:24: error: variable or field ‘write_mat_to_file’ declared void
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                        ^
+funcs.hpp:123:24: error: ‘ofstream’ was not declared in this scope
+funcs.hpp:123:24: note: suggested alternative:
+In file included from /usr/include/c++/4.8/bits/localefwd.h:41:0,
+                 from /usr/include/c++/4.8/string:43,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/iosfwd:160:34: note:   ‘std::ofstream’
+   typedef basic_ofstream<char>   ofstream;
+                                  ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:123:35: error: ‘f’ was not declared in this scope
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                   ^
+funcs.hpp:123:46: error: expected primary-expression before ‘mat’
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                              ^
+sim_funcs.cpp: In function ‘sBattery design_battery(cv::Mat, cv::Mat)’:
+sim_funcs.cpp:33:90: error: ‘create_battery’ was not declared in this scope
+  return create_battery(cell, (int)actions.at<double>(1, 0), (int)actions.at<double>(2, 0));
+                                                                                          ^
+sim_funcs.cpp: In function ‘sBattery create_battery(sCell, double, double)’:
+sim_funcs.cpp:47:88: warning: narrowing conversion of ‘sConfigs’ from ‘double’ to ‘int’ inside { } is ill-formed in C++11 [-Wnarrowing]
+  sBattery battery = { cell, sConfigs, pConfigs, Cost, Mass, Volt, Cap, C, Imax, Energy };
+                                                                                        ^
+sim_funcs.cpp:47:88: warning: narrowing conversion of ‘pConfigs’ from ‘double’ to ‘int’ inside { } is ill-formed in C++11 [-Wnarrowing]
+sim_funcs.cpp: In function ‘sMotor design_motor(cv::Mat, cv::Mat)’:
+sim_funcs.cpp:65:6: warning: unused variable ‘num’ [-Wunused-variable]
+  int num = row;
+      ^
+sim_funcs.cpp: In function ‘sProp design_prop(cv::Mat, cv::Mat)’:
+sim_funcs.cpp:109:83: error: ‘create_prop’ was not declared in this scope
+  return create_prop(diameter, angleRoot, angleTip, chordRoot, chordTip, mass, cost);
+                                                                                   ^
+sim_funcs.cpp: In function ‘sRod design_rod(cv::Mat, cv::Mat, cv::Mat, sProp)’:
+sim_funcs.cpp:142:52: error: ‘create_rod’ was not declared in this scope
+  return create_rod(mat, length, diameter, thickness);
+                                                    ^
+sim_funcs.cpp: In function ‘sRod create_rod(sMaterial, double, double, double)’:
+sim_funcs.cpp:158:7: warning: unused variable ‘rod’ [-Wunused-variable]
+  sRod rod = { mat, Length, Dia, Thick, Area, Amoment, Stiffness, Vol, Mass, Cost, planArea };
+       ^
+sim_funcs.cpp:159:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+sim_funcs.cpp: In function ‘sSys design_sys(sBattery, sMotor, sProp, sRod)’:
+sim_funcs.cpp:166:27: error: ‘resFrameWidth’ was not declared in this scope
+  double resPlanArea = pow(resFrameWidth, 2);
+                           ^
+sim_funcs.cpp:177:31: error: ‘foil’ was not declared in this scope
+  sSys sys = { battery, motor, foil, prop, rod, res, mass, planArea, natFreq, cost, power };
+                               ^
+sim_funcs.cpp: In function ‘void update_states(std::vector<std::vector<double, std::allocator<double> >*>, sPerf, cv::Mat, sSys)’:
+sim_funcs.cpp:192:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:192:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:192:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:192:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:193:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(2, 0), 0);
+                                                              ^
+sim_funcs.cpp:193:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:193:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(2, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:193:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(2, 0), 0);
+                                                              ^
+sim_funcs.cpp:194:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(3, 0), 0);
+                                                              ^
+sim_funcs.cpp:194:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:194:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(3, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:194:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(3, 0), 0);
+                                                              ^
+sim_funcs.cpp:196:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:196:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:196:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:196:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:197:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+sim_funcs.cpp:197:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:197:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:197:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+sim_funcs.cpp:198:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(5, 0), 0);
+                                                              ^
+sim_funcs.cpp:198:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:198:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(5, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:198:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(5, 0), 0);
+                                                              ^
+sim_funcs.cpp:205:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:205:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:205:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:205:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:206:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+sim_funcs.cpp:206:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:206:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:206:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0);
+                                                              ^
+sim_funcs.cpp:207:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+sim_funcs.cpp:207:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:207:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:207:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+sim_funcs.cpp:211:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:211:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:211:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:211:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0);
+                                                              ^
+sim_funcs.cpp:212:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(6, 0), 0);
+                                                              ^
+sim_funcs.cpp:212:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:212:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(6, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:212:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(1) = std::max(constraints.ATD(6, 0), 0);
+                                                              ^
+sim_funcs.cpp:213:62: error: no matching function for call to ‘max(const double&, int)’
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+sim_funcs.cpp:213:62: note: candidates are:
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:216:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:213:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+In file included from /usr/include/c++/4.8/algorithm:61:0,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/4.8/bits/stl_algobase.h:260:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:213:62: note:   deduced conflicting types for parameter ‘const _Tp’ (‘double’ and ‘int’)
+     statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0);
+                                                              ^
+sim_funcs.cpp: In function ‘cv::Mat get_actions(int, std::vector<std::vector<double, std::allocator<double> > > (*)(int))’:
+sim_funcs.cpp:234:48: error: cannot convert ‘std::vector<double, std::allocator<double> >’ to ‘int’ for argument ‘1’ to ‘cv::Mat vector_to_Mat_double(int)’
+     max_double(vector_to_Mat_double(outputs[ag]), actionTemp); 
+                                                ^
+sim_funcs.cpp: In function ‘void write_propfile(sProp, sFoil)’:
+sim_funcs.cpp:268:41: error: ‘const sFoil’ has no member named ‘Rexp’
+   propfile << foil.Reref << " " << foil.Rexp << "\n\n";
+                                         ^
+sim_funcs.cpp:272:22: error: ‘n’ was not declared in this scope
+   for (int i =0; i < n; i++)
+                      ^
+sim_funcs.cpp: In function ‘cv::Mat calc_constraints(sSys, sPerf, int)’:
+sim_funcs.cpp:292:25: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+   constraints.ATD(1, 0) = 10*(1-hover.thrust/thrustReq); // factor of 10 arbitrary
+                         ^
+sim_funcs.cpp:293:25: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+   constraints.ATD(2, 0) = (4*hover.amps)/sys.battery.Imax - 1.0; // perf is from EACH motor
+                         ^
+sim_funcs.cpp:294:25: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+   constraints.ATD(3, 0) = hover.volts/sys.battery.Volt - 1.0;
+                         ^
+sim_funcs.cpp:295:25: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+   constraints.ATD(4, 0) = hover.amps/sys.motor.Imax - 1.0;
+                         ^
+sim_funcs.cpp:296:25: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+   constraints.ATD(5, 0) = hover.pelec/sys.motor.Pmax - 1.0;
+                         ^
+sim_funcs.cpp:297:33: error: cannot convert ‘cv::MatExpr’ to ‘double’ in initialization
+   double forcedFreq = hover.rpm/60.0;
+                                 ^
+sim_funcs.cpp:301:38: error: cannot convert ‘cv::MatExpr’ to ‘double’ in initialization
+   double defl = hover.thrust/sys.rod.Stiffness;
+                                      ^
+sim_funcs.cpp: In function ‘cv::Mat compute_rewards(int, sPenalty, sSys, sData, double&, double&, cv::Mat&, sPerf&)’:
+sim_funcs.cpp:310:49: error: ‘calc_G’ was not declared in this scope
+  calc_G(penalty, sys, G, flightTime, constraints); 
+                                                 ^
+sim_funcs.cpp:314:3: error: ‘rewards’ was not declared in this scope
+   rewards = (cv::Mat)(cv::Mat::ones(NUMAGENTS, 1, CV_64F) * G);
+   ^
+sim_funcs.cpp:318:3: error: ‘rewards’ was not declared in this scope
+   rewards = cv::Mat::zeros(NUMAGENTS, 1, CV_64F);
+   ^
+sim_funcs.cpp:327:50: error: ‘counter_calc’ was not declared in this scope
+       avgCell, avgMotor, avgProp, avgFoil, avgRod);
+                                                  ^
+sim_funcs.cpp:335:47: error: ‘battery’ was not declared in this scope
+      counterBattery = create_battery(avgCell, battery.sConfigs, battery.pConfigs);
+                                               ^
+sim_funcs.cpp:344:50: error: ‘prop’ was not declared in this scope
+      counterProp = create_prop(avgProp.diameter, prop.angleRoot, prop.angleTip, prop.chordRoot, prop.chordTip);
+                                                  ^
+sim_funcs.cpp:359:42: error: ‘rod’ was not declared in this scope
+      counterRod = create_rod(avgRod.mat, rod.Length, rod.Dia, rod.Thick);
+                                          ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:386:12: note: in expansion of macro ‘ATD’
+    rewards.ATD(ag, 0) = G - calc_G(penalty, counterSys);
+            ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:386:12: note: in expansion of macro ‘ATD’
+    rewards.ATD(ag, 0) = G - calc_G(penalty, counterSys);
+            ^
+sim_funcs.cpp:389:9: error: ‘rewards’ was not declared in this scope
+  return rewards;
+         ^
+sim_funcs.cpp: In function ‘double calc_G(sPenalty, sSys)’:
+sim_funcs.cpp:395:60: error: too many arguments to function ‘double calc_G(sPenalty, sSys)’
+  return calc_G(penalty, sys, flightTime, constraints, hover);
+                                                            ^
+sim_funcs.cpp:392:8: note: declared here
+ double calc_G(const sPenalty penalty, const sSys sys)
+        ^
+sim_funcs.cpp: In function ‘double calc_G(sPenalty, sSys, double&, cv::Mat&, sPerf&)’:
+sim_funcs.cpp:404:24: error: ‘calc_hover’ was not declared in this scope
+  hover = calc_hover(sys);
+                        ^
+sim_funcs.cpp:405:45: error: ‘fail’ was not declared in this scope
+  constraints = calc_constraints(sys, hover, fail);
+                                             ^
+sim_funcs.cpp:407:13: error: cannot convert ‘cv::MatExpr’ to ‘double’ in assignment
+  flightTime = sys.battery.Energy/(4.0*hover.pelec);
+             ^
+sim_funcs.cpp:416:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < constraints.total(); i++)
+                                          ^
+sim_funcs.cpp:428:69: error: no matching function for call to ‘cv::Mat::zeros(cv::Size, int, int)’
+    cv::Mat conRewards = cv::Mat::zeros(constraints.size(), 1, CV_64F);
+                                                                     ^
+sim_funcs.cpp:428:69: note: candidates are:
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note: static cv::MatExpr cv::Mat::zeros(int, int, int)
+     static MatExpr zeros(int rows, int cols, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note: static cv::MatExpr cv::Mat::zeros(cv::Size, int)
+     static MatExpr zeros(Size size, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note:   candidate expects 2 arguments, 3 provided
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note: static cv::MatExpr cv::Mat::zeros(int, const int*, int)
+     static MatExpr zeros(int ndims, const int* sz, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+sim_funcs.cpp:429:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < constraints.total(); i++)
+                                          ^
+sim_funcs.cpp:438:23: error: no match for ‘operator+’ (operand types are ‘const double’ and ‘cv::Scalar’)
+     G = penalty.death + sum(conRewards);
+                       ^
+sim_funcs.cpp:438:23: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note: template<class _Iterator> std::reverse_iterator<_Iterator> std::operator+(typename std::reverse_iterator<_Iterator>::difference_type, const std::reverse_iterator<_Iterator>&)
+     operator+(typename reverse_iterator<_Iterator>::difference_type __n,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const _CharT*’ and ‘double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(_CharT, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(_CharT __lhs, const basic_string<_CharT, _Traits, _Alloc>& __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, _CharT)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs, _CharT __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/include/c++/4.8/vector:65:0,
+                 from /usr/local/include/opencv2/core/types.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:58,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note: std::_Bit_iterator std::operator+(std::ptrdiff_t, const std::_Bit_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_iterator&’
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note: std::_Bit_const_iterator std::operator+(std::ptrdiff_t, const std::_Bit_const_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_const_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_const_iterator&’
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:324:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:324:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::complex<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:333:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const _Tp&)
+     operator+(const complex<_Tp>& __x, const _Tp& __y)
+     ^
+/usr/include/c++/4.8/complex:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::complex<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:342:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const _Tp&, const std::complex<_Tp>&)
+     operator+(const _Tp& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:342:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const std::complex<_Tp>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:443:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x)
+     ^
+/usr/include/c++/4.8/complex:443:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const std::complex<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatIterator_<_Tp>&)
+ MatIterator_<_Tp> operator + (ptrdiff_t ofs, const MatIterator_<_Tp>& a)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatIterator_<_Tp>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(const cv::MatIterator_<_Tp>&, ptrdiff_t)
+ MatIterator_<_Tp> operator + (const MatIterator_<_Tp>& a, ptrdiff_t ofs)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::MatIterator_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatConstIterator_<_Tp>&)
+ MatConstIterator_<_Tp> operator + (ptrdiff_t ofs, const MatConstIterator_<_Tp>& a)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatConstIterator_<_Tp>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(const cv::MatConstIterator_<_Tp>&, ptrdiff_t)
+ MatConstIterator_<_Tp> operator + (const MatConstIterator_<_Tp>& a, ptrdiff_t ofs)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::MatConstIterator_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note: cv::MatConstIterator cv::operator+(ptrdiff_t, const cv::MatConstIterator&)
+ MatConstIterator operator + (ptrdiff_t ofs, const MatConstIterator& a)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatConstIterator&’
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note: cv::MatConstIterator cv::operator+(const cv::MatConstIterator&, ptrdiff_t)
+ MatConstIterator operator + (const MatConstIterator& a, ptrdiff_t ofs)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::MatConstIterator&’
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e1, const MatExpr& e2);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Mat& m, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Mat& m);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const Mat& a);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Mat& b);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::Mat&’
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:2052:14: note: template<class _Tp> cv::Scalar_<_Tp> cv::operator+(const cv::Scalar_<_Tp>&, const cv::Scalar_<_Tp>&)
+ Scalar_<_Tp> operator + (const Scalar_<_Tp>& a, const Scalar_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:2052:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Scalar_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1918:7: note: cv::Range cv::operator+(int, const cv::Range&)
+ Range operator + (int delta, const Range& r1)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1918:7: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1912:7: note: cv::Range cv::operator+(const cv::Range&, int)
+ Range operator + (const Range& r1, int delta)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1912:7: note:   no known conversion for argument 1 from ‘const double’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1816:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Size_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1816:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1804:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Point_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Point_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1804:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1622:12: note: template<class _Tp> cv::Size_<_Tp> cv::operator+(const cv::Size_<_Tp>&, const cv::Size_<_Tp>&)
+ Size_<_Tp> operator + (const Size_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1622:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Size_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1452:14: note: template<class _Tp> cv::Point3_<_Tp> cv::operator+(const cv::Point3_<_Tp>&, const cv::Point3_<_Tp>&)
+ Point3_<_Tp> operator + (const Point3_<_Tp>& a, const Point3_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:1452:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Point3_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1208:13: note: template<class _Tp> cv::Point_<_Tp> cv::operator+(const cv::Point_<_Tp>&, const cv::Point_<_Tp>&)
+ Point_<_Tp> operator + (const Point_<_Tp>& a, const Point_<_Tp>& b)
+             ^
+/usr/local/include/opencv2/core/types.hpp:1208:13: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Point_<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:988:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(_Tp, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (_Tp b, const Complex<_Tp>& a)
+              ^
+/usr/local/include/opencv2/core/types.hpp:988:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   ‘cv::Scalar’ is not derived from ‘const cv::Complex<_Tp>’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:978:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, _Tp)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, _Tp b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:978:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:928:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, const Complex<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:928:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note: template<class _Tp, int cn> cv::Vec<_Tp, m> cv::operator+(const cv::Vec<_Tp, m>&, const cv::Vec<_Tp, m>&)
+ Vec<_Tp, cn> operator + (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+              ^
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Vec<_Tp, m>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note: template<class _Tp, int m, int n> cv::Matx<_Tp, m, n> cv::operator+(const cv::Matx<_Tp, m, n>&, const cv::Matx<_Tp, m, n>&)
+ Matx<_Tp, m, n> operator + (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+                 ^
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:438:39: note:   mismatched types ‘const cv::Matx<_Tp, m, n>’ and ‘const double’
+     G = penalty.death + sum(conRewards);
+                                       ^
+In file included from /usr/local/include/opencv2/core.hpp:3175:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note: cv::String cv::operator+(const string&, const cv::String&)
+ String operator + (const std::string& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note:   no known conversion for argument 1 from ‘const double’ to ‘const string& {aka const std::basic_string<char>&}’
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note: cv::String cv::operator+(const cv::String&, const string&)
+ String operator + (const String& lhs, const std::string& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const string& {aka const std::basic_string<char>&}’
+In file included from /usr/local/include/opencv2/core/base.hpp:56:0,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note: cv::String cv::operator+(char, const cv::String&)
+ String operator + (char lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note: cv::String cv::operator+(const cv::String&, char)
+ String operator + (const String& lhs, char rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘char’
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note: cv::String cv::operator+(const char*, const cv::String&)
+ String operator + (const char* lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note:   no known conversion for argument 1 from ‘const double’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note: cv::String cv::operator+(const cv::String&, const char*)
+ String operator + (const String& lhs, const char* rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note: cv::String cv::operator+(const cv::String&, const cv::String&)
+ String operator + (const String& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+sim_funcs.cpp:442:69: error: no matching function for call to ‘cv::Mat::zeros(cv::Size, int, int)’
+    cv::Mat conRewards = cv::Mat::zeros(constraints.size(), 1, CV_64F);
+                                                                     ^
+sim_funcs.cpp:442:69: note: candidates are:
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note: static cv::MatExpr cv::Mat::zeros(int, int, int)
+     static MatExpr zeros(int rows, int cols, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note: static cv::MatExpr cv::Mat::zeros(cv::Size, int)
+     static MatExpr zeros(Size size, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note:   candidate expects 2 arguments, 3 provided
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note: static cv::MatExpr cv::Mat::zeros(int, const int*, int)
+     static MatExpr zeros(int ndims, const int* sz, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+sim_funcs.cpp:443:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < constraints.total(); i++)
+                                          ^
+sim_funcs.cpp:446:38: error: ‘const sPenalty’ has no member named ‘R’
+      conRewards.ATD(i, 0) = -penalty.R*pow(1 + constraints.ATD(i, 0), 2.0);
+                                      ^
+sim_funcs.cpp:448:29: error: no match for ‘operator+’ (operand types are ‘double’ and ‘cv::Scalar’)
+    double temp = flightTime + sum(conRewards);
+                             ^
+sim_funcs.cpp:448:29: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note: template<class _Iterator> std::reverse_iterator<_Iterator> std::operator+(typename std::reverse_iterator<_Iterator>::difference_type, const std::reverse_iterator<_Iterator>&)
+     operator+(typename reverse_iterator<_Iterator>::difference_type __n,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const _CharT*’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(_CharT, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(_CharT __lhs, const basic_string<_CharT, _Traits, _Alloc>& __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, _CharT)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs, _CharT __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/vector:65:0,
+                 from /usr/local/include/opencv2/core/types.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:58,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note: std::_Bit_iterator std::operator+(std::ptrdiff_t, const std::_Bit_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_iterator&’
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note: std::_Bit_const_iterator std::operator+(std::ptrdiff_t, const std::_Bit_const_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_const_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_const_iterator&’
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:324:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:324:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:333:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const _Tp&)
+     operator+(const complex<_Tp>& __x, const _Tp& __y)
+     ^
+/usr/include/c++/4.8/complex:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:342:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const _Tp&, const std::complex<_Tp>&)
+     operator+(const _Tp& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:342:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const std::complex<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:443:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x)
+     ^
+/usr/include/c++/4.8/complex:443:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatIterator_<_Tp>&)
+ MatIterator_<_Tp> operator + (ptrdiff_t ofs, const MatIterator_<_Tp>& a)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatIterator_<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(const cv::MatIterator_<_Tp>&, ptrdiff_t)
+ MatIterator_<_Tp> operator + (const MatIterator_<_Tp>& a, ptrdiff_t ofs)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::MatIterator_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatConstIterator_<_Tp>&)
+ MatConstIterator_<_Tp> operator + (ptrdiff_t ofs, const MatConstIterator_<_Tp>& a)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatConstIterator_<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(const cv::MatConstIterator_<_Tp>&, ptrdiff_t)
+ MatConstIterator_<_Tp> operator + (const MatConstIterator_<_Tp>& a, ptrdiff_t ofs)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::MatConstIterator_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note: cv::MatConstIterator cv::operator+(ptrdiff_t, const cv::MatConstIterator&)
+ MatConstIterator operator + (ptrdiff_t ofs, const MatConstIterator& a)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatConstIterator&’
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note: cv::MatConstIterator cv::operator+(const cv::MatConstIterator&, ptrdiff_t)
+ MatConstIterator operator + (const MatConstIterator& a, ptrdiff_t ofs)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatConstIterator&’
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e1, const MatExpr& e2);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Mat& m, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Mat& m);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const Mat& a);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Mat& b);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:2052:14: note: template<class _Tp> cv::Scalar_<_Tp> cv::operator+(const cv::Scalar_<_Tp>&, const cv::Scalar_<_Tp>&)
+ Scalar_<_Tp> operator + (const Scalar_<_Tp>& a, const Scalar_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:2052:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Scalar_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1918:7: note: cv::Range cv::operator+(int, const cv::Range&)
+ Range operator + (int delta, const Range& r1)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1918:7: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1912:7: note: cv::Range cv::operator+(const cv::Range&, int)
+ Range operator + (const Range& r1, int delta)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1912:7: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1816:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Size_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1816:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1804:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Point_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Point_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1804:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1622:12: note: template<class _Tp> cv::Size_<_Tp> cv::operator+(const cv::Size_<_Tp>&, const cv::Size_<_Tp>&)
+ Size_<_Tp> operator + (const Size_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1622:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Size_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1452:14: note: template<class _Tp> cv::Point3_<_Tp> cv::operator+(const cv::Point3_<_Tp>&, const cv::Point3_<_Tp>&)
+ Point3_<_Tp> operator + (const Point3_<_Tp>& a, const Point3_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:1452:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Point3_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1208:13: note: template<class _Tp> cv::Point_<_Tp> cv::operator+(const cv::Point_<_Tp>&, const cv::Point_<_Tp>&)
+ Point_<_Tp> operator + (const Point_<_Tp>& a, const Point_<_Tp>& b)
+             ^
+/usr/local/include/opencv2/core/types.hpp:1208:13: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Point_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:988:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(_Tp, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (_Tp b, const Complex<_Tp>& a)
+              ^
+/usr/local/include/opencv2/core/types.hpp:988:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::Complex<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:978:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, _Tp)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, _Tp b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:978:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:928:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, const Complex<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:928:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note: template<class _Tp, int cn> cv::Vec<_Tp, m> cv::operator+(const cv::Vec<_Tp, m>&, const cv::Vec<_Tp, m>&)
+ Vec<_Tp, cn> operator + (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+              ^
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Vec<_Tp, m>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note: template<class _Tp, int m, int n> cv::Matx<_Tp, m, n> cv::operator+(const cv::Matx<_Tp, m, n>&, const cv::Matx<_Tp, m, n>&)
+ Matx<_Tp, m, n> operator + (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+                 ^
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:448:45: note:   mismatched types ‘const cv::Matx<_Tp, m, n>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:3175:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note: cv::String cv::operator+(const string&, const cv::String&)
+ String operator + (const std::string& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note:   no known conversion for argument 1 from ‘double’ to ‘const string& {aka const std::basic_string<char>&}’
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note: cv::String cv::operator+(const cv::String&, const string&)
+ String operator + (const String& lhs, const std::string& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const string& {aka const std::basic_string<char>&}’
+In file included from /usr/local/include/opencv2/core/base.hpp:56:0,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note: cv::String cv::operator+(char, const cv::String&)
+ String operator + (char lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note: cv::String cv::operator+(const cv::String&, char)
+ String operator + (const String& lhs, char rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘char’
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note: cv::String cv::operator+(const char*, const cv::String&)
+ String operator + (const char* lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note:   no known conversion for argument 1 from ‘double’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note: cv::String cv::operator+(const cv::String&, const char*)
+ String operator + (const String& lhs, const char* rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note: cv::String cv::operator+(const cv::String&, const cv::String&)
+ String operator + (const String& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+sim_funcs.cpp:450:9: error: ‘quadtrunc’ was not declared in this scope
+     G = quadtrunc;
+         ^
+sim_funcs.cpp:456:69: error: no matching function for call to ‘cv::Mat::zeros(cv::Size, int, int)’
+    cv::Mat conRewards = cv::Mat::zeros(constraints.size(), 1, CV_64F);
+                                                                     ^
+sim_funcs.cpp:456:69: note: candidates are:
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note: static cv::MatExpr cv::Mat::zeros(int, int, int)
+     static MatExpr zeros(int rows, int cols, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note: static cv::MatExpr cv::Mat::zeros(cv::Size, int)
+     static MatExpr zeros(Size size, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note:   candidate expects 2 arguments, 3 provided
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note: static cv::MatExpr cv::Mat::zeros(int, const int*, int)
+     static MatExpr zeros(int ndims, const int* sz, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+sim_funcs.cpp:457:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < constraints.total(); i++)
+                                          ^
+sim_funcs.cpp:462:29: error: no match for ‘operator+’ (operand types are ‘double’ and ‘cv::Scalar’)
+    double temp = flightTime + sum(conRewards);
+                             ^
+sim_funcs.cpp:462:29: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note: template<class _Iterator> std::reverse_iterator<_Iterator> std::operator+(typename std::reverse_iterator<_Iterator>::difference_type, const std::reverse_iterator<_Iterator>&)
+     operator+(typename reverse_iterator<_Iterator>::difference_type __n,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const _CharT*’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(_CharT, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(_CharT __lhs, const basic_string<_CharT, _Traits, _Alloc>& __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, _CharT)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs, _CharT __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/include/c++/4.8/vector:65:0,
+                 from /usr/local/include/opencv2/core/types.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:58,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note: std::_Bit_iterator std::operator+(std::ptrdiff_t, const std::_Bit_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_iterator&’
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note: std::_Bit_const_iterator std::operator+(std::ptrdiff_t, const std::_Bit_const_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_const_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_const_iterator&’
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:324:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:324:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:333:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const _Tp&)
+     operator+(const complex<_Tp>& __x, const _Tp& __y)
+     ^
+/usr/include/c++/4.8/complex:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:342:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const _Tp&, const std::complex<_Tp>&)
+     operator+(const _Tp& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:342:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const std::complex<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:443:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x)
+     ^
+/usr/include/c++/4.8/complex:443:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatIterator_<_Tp>&)
+ MatIterator_<_Tp> operator + (ptrdiff_t ofs, const MatIterator_<_Tp>& a)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatIterator_<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(const cv::MatIterator_<_Tp>&, ptrdiff_t)
+ MatIterator_<_Tp> operator + (const MatIterator_<_Tp>& a, ptrdiff_t ofs)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::MatIterator_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatConstIterator_<_Tp>&)
+ MatConstIterator_<_Tp> operator + (ptrdiff_t ofs, const MatConstIterator_<_Tp>& a)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatConstIterator_<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(const cv::MatConstIterator_<_Tp>&, ptrdiff_t)
+ MatConstIterator_<_Tp> operator + (const MatConstIterator_<_Tp>& a, ptrdiff_t ofs)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::MatConstIterator_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note: cv::MatConstIterator cv::operator+(ptrdiff_t, const cv::MatConstIterator&)
+ MatConstIterator operator + (ptrdiff_t ofs, const MatConstIterator& a)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatConstIterator&’
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note: cv::MatConstIterator cv::operator+(const cv::MatConstIterator&, ptrdiff_t)
+ MatConstIterator operator + (const MatConstIterator& a, ptrdiff_t ofs)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatConstIterator&’
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e1, const MatExpr& e2);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Mat& m, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Mat& m);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const Mat& a);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Mat& b);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:2052:14: note: template<class _Tp> cv::Scalar_<_Tp> cv::operator+(const cv::Scalar_<_Tp>&, const cv::Scalar_<_Tp>&)
+ Scalar_<_Tp> operator + (const Scalar_<_Tp>& a, const Scalar_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:2052:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Scalar_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1918:7: note: cv::Range cv::operator+(int, const cv::Range&)
+ Range operator + (int delta, const Range& r1)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1918:7: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1912:7: note: cv::Range cv::operator+(const cv::Range&, int)
+ Range operator + (const Range& r1, int delta)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1912:7: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1816:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Size_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1816:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1804:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Point_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Point_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1804:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1622:12: note: template<class _Tp> cv::Size_<_Tp> cv::operator+(const cv::Size_<_Tp>&, const cv::Size_<_Tp>&)
+ Size_<_Tp> operator + (const Size_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1622:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Size_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1452:14: note: template<class _Tp> cv::Point3_<_Tp> cv::operator+(const cv::Point3_<_Tp>&, const cv::Point3_<_Tp>&)
+ Point3_<_Tp> operator + (const Point3_<_Tp>& a, const Point3_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:1452:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Point3_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1208:13: note: template<class _Tp> cv::Point_<_Tp> cv::operator+(const cv::Point_<_Tp>&, const cv::Point_<_Tp>&)
+ Point_<_Tp> operator + (const Point_<_Tp>& a, const Point_<_Tp>& b)
+             ^
+/usr/local/include/opencv2/core/types.hpp:1208:13: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Point_<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:988:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(_Tp, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (_Tp b, const Complex<_Tp>& a)
+              ^
+/usr/local/include/opencv2/core/types.hpp:988:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   ‘cv::Scalar’ is not derived from ‘const cv::Complex<_Tp>’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:978:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, _Tp)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, _Tp b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:978:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:928:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, const Complex<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:928:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note: template<class _Tp, int cn> cv::Vec<_Tp, m> cv::operator+(const cv::Vec<_Tp, m>&, const cv::Vec<_Tp, m>&)
+ Vec<_Tp, cn> operator + (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+              ^
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Vec<_Tp, m>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note: template<class _Tp, int m, int n> cv::Matx<_Tp, m, n> cv::operator+(const cv::Matx<_Tp, m, n>&, const cv::Matx<_Tp, m, n>&)
+ Matx<_Tp, m, n> operator + (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+                 ^
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:462:45: note:   mismatched types ‘const cv::Matx<_Tp, m, n>’ and ‘double’
+    double temp = flightTime + sum(conRewards);
+                                             ^
+In file included from /usr/local/include/opencv2/core.hpp:3175:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note: cv::String cv::operator+(const string&, const cv::String&)
+ String operator + (const std::string& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note:   no known conversion for argument 1 from ‘double’ to ‘const string& {aka const std::basic_string<char>&}’
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note: cv::String cv::operator+(const cv::String&, const string&)
+ String operator + (const String& lhs, const std::string& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const string& {aka const std::basic_string<char>&}’
+In file included from /usr/local/include/opencv2/core/base.hpp:56:0,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note: cv::String cv::operator+(char, const cv::String&)
+ String operator + (char lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note: cv::String cv::operator+(const cv::String&, char)
+ String operator + (const String& lhs, char rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘char’
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note: cv::String cv::operator+(const char*, const cv::String&)
+ String operator + (const char* lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note:   no known conversion for argument 1 from ‘double’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note: cv::String cv::operator+(const cv::String&, const char*)
+ String operator + (const String& lhs, const char* rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note: cv::String cv::operator+(const cv::String&, const cv::String&)
+ String operator + (const String& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+sim_funcs.cpp:464:9: error: ‘quadtrunc’ was not declared in this scope
+     G = quadtrunc;
+         ^
+sim_funcs.cpp:470:69: error: no matching function for call to ‘cv::Mat::zeros(cv::Size, int, int)’
+    cv::Mat conRewards = cv::Mat::zeros(constraints.size(), 1, CV_64F);
+                                                                     ^
+sim_funcs.cpp:470:69: note: candidates are:
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note: static cv::MatExpr cv::Mat::zeros(int, int, int)
+     static MatExpr zeros(int rows, int cols, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1220:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note: static cv::MatExpr cv::Mat::zeros(cv::Size, int)
+     static MatExpr zeros(Size size, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1226:20: note:   candidate expects 2 arguments, 3 provided
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note: static cv::MatExpr cv::Mat::zeros(int, const int*, int)
+     static MatExpr zeros(int ndims, const int* sz, int type);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:1233:20: note:   no known conversion for argument 1 from ‘cv::Size’ to ‘int’
+sim_funcs.cpp:471:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < constraints.total(); i++)
+                                          ^
+sim_funcs.cpp:476:19: error: no match for ‘operator+’ (operand types are ‘double’ and ‘cv::Scalar’)
+    G = flightTime + sum(conRewards);
+                   ^
+sim_funcs.cpp:476:19: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/algorithm:61,
+                 from /usr/local/include/opencv2/core/base.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note: template<class _Iterator> std::reverse_iterator<_Iterator> std::operator+(typename std::reverse_iterator<_Iterator>::difference_type, const std::reverse_iterator<_Iterator>&)
+     operator+(typename reverse_iterator<_Iterator>::difference_type __n,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2365:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:692:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const _CharT*’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/string:53:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(_CharT, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator+(_CharT __lhs, const basic_string<_CharT, _Traits, _Alloc>& __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.tcc:708:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2402:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_string<_CharT, _Traits, _Alloc> std::operator+(const std::basic_string<_CharT, _Traits, _Alloc>&, _CharT)
+     operator+(const basic_string<_CharT, _Traits, _Alloc>& __lhs, _CharT __rhs)
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2418:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::basic_string<_CharT, _Traits, _Alloc>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/include/c++/4.8/vector:65:0,
+                 from /usr/local/include/opencv2/core/types.hpp:53,
+                 from /usr/local/include/opencv2/core.hpp:58,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note: std::_Bit_iterator std::operator+(std::ptrdiff_t, const std::_Bit_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:293:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_iterator&’
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note: std::_Bit_const_iterator std::operator+(std::ptrdiff_t, const std::_Bit_const_iterator&)
+   operator+(ptrdiff_t __n, const _Bit_const_iterator& __x)
+   ^
+/usr/include/c++/4.8/bits/stl_bvector.h:379:3: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const std::_Bit_const_iterator&’
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:324:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:324:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:333:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&, const _Tp&)
+     operator+(const complex<_Tp>& __x, const _Tp& __y)
+     ^
+/usr/include/c++/4.8/complex:333:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:342:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const _Tp&, const std::complex<_Tp>&)
+     operator+(const _Tp& __x, const complex<_Tp>& __y)
+     ^
+/usr/include/c++/4.8/complex:342:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const std::complex<_Tp>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/cvstd.inl.hpp:48:0,
+                 from /usr/local/include/opencv2/core.hpp:3175,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/c++/4.8/complex:443:5: note: template<class _Tp> std::complex<_Tp> std::operator+(const std::complex<_Tp>&)
+     operator+(const complex<_Tp>& __x)
+     ^
+/usr/include/c++/4.8/complex:443:5: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const std::complex<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatIterator_<_Tp>&)
+ MatIterator_<_Tp> operator + (ptrdiff_t ofs, const MatIterator_<_Tp>& a)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2778:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatIterator_<_Tp>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note: template<class _Tp> cv::MatIterator_<_Tp> cv::operator+(const cv::MatIterator_<_Tp>&, ptrdiff_t)
+ MatIterator_<_Tp> operator + (const MatIterator_<_Tp>& a, ptrdiff_t ofs)
+                   ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2771:19: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::MatIterator_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(ptrdiff_t, const cv::MatConstIterator_<_Tp>&)
+ MatConstIterator_<_Tp> operator + (ptrdiff_t ofs, const MatConstIterator_<_Tp>& a)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2641:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const cv::MatConstIterator_<_Tp>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note: template<class _Tp> cv::MatConstIterator_<_Tp> cv::operator+(const cv::MatConstIterator_<_Tp>&, ptrdiff_t)
+ MatConstIterator_<_Tp> operator + (const MatConstIterator_<_Tp>& a, ptrdiff_t ofs)
+                        ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2634:24: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::MatConstIterator_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core/mat.hpp:3440:0,
+                 from /usr/local/include/opencv2/core.hpp:59,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note: cv::MatConstIterator cv::operator+(ptrdiff_t, const cv::MatConstIterator&)
+ MatConstIterator operator + (ptrdiff_t ofs, const MatConstIterator& a)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2493:18: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatConstIterator&’
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note: cv::MatConstIterator cv::operator+(const cv::MatConstIterator&, ptrdiff_t)
+ MatConstIterator operator + (const MatConstIterator& a, ptrdiff_t ofs)
+                  ^
+/usr/local/include/opencv2/core/mat.inl.hpp:2486:18: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatConstIterator&’
+In file included from /usr/local/include/opencv2/core.hpp:59:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e1, const MatExpr& e2);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3340:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3339:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3338:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::MatExpr&)
+ CV_EXPORTS MatExpr operator + (const Mat& m, const MatExpr& e);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3337:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note: cv::MatExpr cv::operator+(const cv::MatExpr&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const MatExpr& e, const Mat& m);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3336:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::MatExpr&’
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note: cv::MatExpr cv::operator+(const Scalar&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Scalar& s, const Mat& a);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3335:20: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const Scalar&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Scalar& s);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3334:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note: cv::MatExpr cv::operator+(const cv::Mat&, const cv::Mat&)
+ CV_EXPORTS MatExpr operator + (const Mat& a, const Mat& b);
+                    ^
+/usr/local/include/opencv2/core/mat.hpp:3333:20: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Mat&’
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:2052:14: note: template<class _Tp> cv::Scalar_<_Tp> cv::operator+(const cv::Scalar_<_Tp>&, const cv::Scalar_<_Tp>&)
+ Scalar_<_Tp> operator + (const Scalar_<_Tp>& a, const Scalar_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:2052:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Scalar_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1918:7: note: cv::Range cv::operator+(int, const cv::Range&)
+ Range operator + (int delta, const Range& r1)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1918:7: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1912:7: note: cv::Range cv::operator+(const cv::Range&, int)
+ Range operator + (const Range& r1, int delta)
+       ^
+/usr/local/include/opencv2/core/types.hpp:1912:7: note:   no known conversion for argument 1 from ‘double’ to ‘const cv::Range&’
+/usr/local/include/opencv2/core/types.hpp:1816:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Size_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1816:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1804:12: note: template<class _Tp> cv::Rect_<_Tp> cv::operator+(const cv::Rect_<_Tp>&, const cv::Point_<_Tp>&)
+ Rect_<_Tp> operator + (const Rect_<_Tp>& a, const Point_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1804:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Rect_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1622:12: note: template<class _Tp> cv::Size_<_Tp> cv::operator+(const cv::Size_<_Tp>&, const cv::Size_<_Tp>&)
+ Size_<_Tp> operator + (const Size_<_Tp>& a, const Size_<_Tp>& b)
+            ^
+/usr/local/include/opencv2/core/types.hpp:1622:12: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Size_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1452:14: note: template<class _Tp> cv::Point3_<_Tp> cv::operator+(const cv::Point3_<_Tp>&, const cv::Point3_<_Tp>&)
+ Point3_<_Tp> operator + (const Point3_<_Tp>& a, const Point3_<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:1452:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Point3_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:1208:13: note: template<class _Tp> cv::Point_<_Tp> cv::operator+(const cv::Point_<_Tp>&, const cv::Point_<_Tp>&)
+ Point_<_Tp> operator + (const Point_<_Tp>& a, const Point_<_Tp>& b)
+             ^
+/usr/local/include/opencv2/core/types.hpp:1208:13: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Point_<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:988:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(_Tp, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (_Tp b, const Complex<_Tp>& a)
+              ^
+/usr/local/include/opencv2/core/types.hpp:988:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   ‘cv::Scalar’ is not derived from ‘const cv::Complex<_Tp>’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:978:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, _Tp)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, _Tp b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:978:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:58:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/types.hpp:928:14: note: template<class _Tp> cv::Complex<_Tp> cv::operator+(const cv::Complex<_Tp>&, const cv::Complex<_Tp>&)
+ Complex<_Tp> operator + (const Complex<_Tp>& a, const Complex<_Tp>& b)
+              ^
+/usr/local/include/opencv2/core/types.hpp:928:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Complex<_Tp>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note: template<class _Tp, int cn> cv::Vec<_Tp, m> cv::operator+(const cv::Vec<_Tp, m>&, const cv::Vec<_Tp, m>&)
+ Vec<_Tp, cn> operator + (const Vec<_Tp, cn>& a, const Vec<_Tp, cn>& b)
+              ^
+/usr/local/include/opencv2/core/matx.hpp:1265:14: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Vec<_Tp, m>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:57:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note: template<class _Tp, int m, int n> cv::Matx<_Tp, m, n> cv::operator+(const cv::Matx<_Tp, m, n>&, const cv::Matx<_Tp, m, n>&)
+ Matx<_Tp, m, n> operator + (const Matx<_Tp, m, n>& a, const Matx<_Tp, m, n>& b)
+                 ^
+/usr/local/include/opencv2/core/matx.hpp:1137:17: note:   template argument deduction/substitution failed:
+sim_funcs.cpp:476:35: note:   mismatched types ‘const cv::Matx<_Tp, m, n>’ and ‘double’
+    G = flightTime + sum(conRewards);
+                                   ^
+In file included from /usr/local/include/opencv2/core.hpp:3175:0,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note: cv::String cv::operator+(const string&, const cv::String&)
+ String operator + (const std::string& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:133:8: note:   no known conversion for argument 1 from ‘double’ to ‘const string& {aka const std::basic_string<char>&}’
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note: cv::String cv::operator+(const cv::String&, const string&)
+ String operator + (const String& lhs, const std::string& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.inl.hpp:122:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const string& {aka const std::basic_string<char>&}’
+In file included from /usr/local/include/opencv2/core/base.hpp:56:0,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note: cv::String cv::operator+(char, const cv::String&)
+ String operator + (char lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1019:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note: cv::String cv::operator+(const cv::String&, char)
+ String operator + (const String& lhs, char rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:1009:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘char’
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note: cv::String cv::operator+(const char*, const cv::String&)
+ String operator + (const char* lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:998:8: note:   no known conversion for argument 1 from ‘double’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note: cv::String cv::operator+(const cv::String&, const char*)
+ String operator + (const String& lhs, const char* rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:987:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const char*’
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note: cv::String cv::operator+(const cv::String&, const cv::String&)
+ String operator + (const String& lhs, const String& rhs)
+        ^
+/usr/local/include/opencv2/core/cvstd.hpp:977:8: note:   no known conversion for argument 2 from ‘cv::Scalar’ to ‘const cv::String&’
+sim_funcs.cpp:406:9: warning: unused variable ‘totalCost’ [-Wunused-variable]
+  double totalCost = sys.battery.Cost + sys.motor.Cost*4 + sys.rod.Cost*4;
+         ^
+sim_funcs.cpp:485:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+sim_funcs.cpp: In function ‘sPerf calc_hover(sSys)’:
+sim_funcs.cpp:501:120: error: ‘call_qprop’ was not declared in this scope
+  sPerf hover = call_qprop(velStr, rpmStr, voltStr, dBetaStr, thrustStr, torqueStr, ampsStr, peleStr, mode, sys.motorNum);
+                                                                                                                        ^
+sim_funcs.cpp:503:19: error: could not convert ‘cv::operator<(const cv::Mat&, double)((thrustReq * 9.0000000000000002e-1))’ from ‘cv::MatExpr’ to ‘bool’
+  if (hover.thrust < 0.9*thrustReq)
+                   ^
+sim_funcs.cpp:504:9: error: ‘sPerf’ has no member named ‘failure’
+   hover.failure = 1;
+         ^
+sim_funcs.cpp:505:13: error: ‘sPerf’ has no member named ‘failure’
+  else hover.failure = 0;
+             ^
+sim_funcs.cpp: In function ‘sPerf call_qprop(std::string, std::string, std::string, std::string, std::string, std::string, std::string, std::string, std::string, int)’:
+sim_funcs.cpp:515:53: error: expected ‘,’ or ‘;’ before ‘thrustStr’
+       rpmStr + " " + voltStr + " " + dBetaStr + " " thrustStr + " " + torqueStr +\
+                                                     ^
+sim_funcs.cpp:518:44: error: too few arguments to function ‘FILE* popen(const char*, const char*)’
+  FILE* qpropPipe = popen(qpropinput.c_str());
+                                            ^
+In file included from /usr/include/c++/4.8/cstdio:42:0,
+                 from /usr/local/include/opencv2/core/operations.hpp:52,
+                 from /usr/local/include/opencv2/core.hpp:3174,
+                 from sim_structs.hpp:4,
+                 from sim_funcs.cpp:3:
+/usr/include/stdio.h:873:14: note: declared here
+ extern FILE *popen (const char *__command, const char *__modes) __wur;
+              ^
+sim_funcs.cpp:539:64: warning: comparison with string literal results in unspecified behaviour [-Waddress]
+    if (line == " " || line == "\n" || line == "" || line[0] == "#")
+                                                                ^
+sim_funcs.cpp:539:64: error: ISO C++ forbids comparison between pointer and integer [-fpermissive]
+sim_funcs.cpp:560:64: warning: comparison with string literal results in unspecified behaviour [-Waddress]
+    if (line == " " || line == "\n" || line == "" || line[0] == "#")
+                                                                ^
+sim_funcs.cpp:560:64: error: ISO C++ forbids comparison between pointer and integer [-fpermissive]
+sim_funcs.cpp:581:18: error: ‘sPerf’ has no member named ‘dBeta’
+  assign_mat(perf.dBeta, qpropoutput, -1, -1, -1, -1, -1, -1, 2, 2);
+                  ^
+sim_funcs.cpp: In function ‘void run_experiment(sPenalty, int, int, int)’:
+sim_funcs.cpp:603:2: error: ‘numGens’ was not declared in this scope
+  numGens = gens;
+  ^
+sim_funcs.cpp:604:2: error: ‘numRuns’ was not declared in this scope
+  numRuns = runs;
+  ^
+sim_funcs.cpp:605:2: error: ‘popSize’ was not declared in this scope
+  popSize = pSize;
+  ^
+sim_funcs.cpp:608:61: error: ‘numEpochs’ was not declared in this scope
+  double penFxnB = log(penalty.quadMin/penalty.quadMax)/(1 - numEpochs);
+                                                             ^
+sim_funcs.cpp:641:25: error: expected primary-expression before ‘?’ token
+   int arrNumInputs[] = {?};       // v Increase?
+                         ^
+sim_funcs.cpp:641:26: error: expected primary-expression before ‘}’ token
+   int arrNumInputs[] = {?};       // v Increase?
+                          ^
+sim_funcs.cpp:641:26: error: expected ‘:’ before ‘}’ token
+sim_funcs.cpp:641:26: error: expected primary-expression before ‘}’ token
+sim_funcs.cpp:646:103: error: expected ‘)’ before ‘;’ token
+   std::vector<int> vecNumInputs(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(arrNumInputs);
+                                                                                                       ^
+sim_funcs.cpp:647:103: error: expected ‘)’ before ‘;’ token
+   std::vector<int> vecNumHidden(arrNumHidden, arrNumHidden + sizeof(arrNumHidden)/sizeof(arrNumHidden);
+                                                                                                       ^
+sim_funcs.cpp:648:108: error: expected ‘)’ before ‘;’ token
+   std::vector<int> vecNumOutputs(arrNumOutputs, arrNumOutputs + sizeof(arrNumOutputs)/sizeof(arrNumOutputs);
+                                                                                                            ^
+sim_funcs.cpp:655:12: error: ‘sPenalty’ has no member named ‘R’
+    penalty.R = penFxnA*exp(penFnxB*g);
+            ^
+sim_funcs.cpp:655:28: error: ‘penFnxB’ was not declared in this scope
+    penalty.R = penFxnA*exp(penFnxB*g);
+                            ^
+sim_funcs.cpp:662:4: error: ‘team_G’ was not declared in this scope
+    team_G = cv::Mat::zeros(popSize*2, 1, CV_64F);
+    ^
+sim_funcs.cpp:663:4: error: ‘team_flightTime’ was not declared in this scope
+    team_flightTime = cv::Mat::zeros(popSize*2, 1, CV_64F);
+    ^
+sim_funcs.cpp:666:4: error: ‘team_constraints’ was not declared in this scope
+    team_constraints = cv::Mat::zeros(popSize*2, 8, CV_64F);
+    ^
+sim_funcs.cpp:667:4: error: ‘team_rewards’ was not declared in this scope
+    team_rewards = cv::Mat::zeros(NUMAGENTS, popSize*2, CV_64F);
+    ^
+sim_funcs.cpp:671:61: error: cannot convert ‘CCEA::GetOutputsOfTeam’ from type ‘std::vector<std::vector<double, std::allocator<double> > > (CCEA::)(int)’ to type ‘std::vector<std::vector<double, std::allocator<double> > > (*)(int)’
+     assign_mat(actions, get_actions(t, ccea.GetOutputsOfTeam);
+                                                             ^
+sim_funcs.cpp:683:55: error: ‘motorNum’ was not declared in this scope
+     sys = design_sys(battery, motor, prop, foil, rod, motorNum);
+                                                       ^
+sim_funcs.cpp:688:39: error: ‘D’ was not declared in this scope
+     cv::Mat rewards = compute_rewards(D, penalty, sys, data, /* <-- inputs */
+                                       ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:690:12: note: in expansion of macro ‘ATD’
+     team_G.ATD(t, 0) = G;
+            ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:690:12: note: in expansion of macro ‘ATD’
+     team_G.ATD(t, 0) = G;
+            ^
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:691:21: note: in expansion of macro ‘ATD’
+     team_flightTime.ATD(t, 0) = flightTime;
+                     ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:691:21: note: in expansion of macro ‘ATD’
+     team_flightTime.ATD(t, 0) = flightTime;
+                     ^
+sim_funcs.cpp:697:11: error: ‘class CCEA’ has no member named ‘team’
+      ccea.team[ag].fitness = rewards.ATD(ag, 0);
+           ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:710:57: note: in expansion of macro ‘ATD’
+     constraint_hist.at<double>(elem) = team_constraints.ATD(bestTeam, c);
+                                                         ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:710:57: note: in expansion of macro ‘ATD’
+     constraint_hist.at<double>(elem) = team_constraints.ATD(bestTeam, c);
+                                                         ^
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:714:48: note: in expansion of macro ‘ATD’
+    flightTime_hist.ATD(r, g) = team_flightTime.ATD(bestTeam, 0);
+                                                ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:714:48: note: in expansion of macro ‘ATD’
+    flightTime_hist.ATD(r, g) = team_flightTime.ATD(bestTeam, 0);
+                                                ^
+sim_funcs.cpp:716:39: error: ‘constraints’ was not declared in this scope
+    if (G > maxG.ATD(r, 0) && all_leqz(constraints))
+                                       ^
+sim_funcs.cpp:716:50: error: ‘all_leqz’ was not declared in this scope
+    if (G > maxG.ATD(r, 0) && all_leqz(constraints))
+                                                  ^
+In file included from sim_funcs.cpp:4:0:
+funcs.hpp:28:21: error: expected primary-expression before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:720:47: note: in expansion of macro ‘ATD’
+     maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
+                                               ^
+funcs.hpp:28:21: error: expected ‘;’ before ‘double’
+ #define ATD(i,j) at<double>(i,j)
+                     ^
+sim_funcs.cpp:720:47: note: in expansion of macro ‘ATD’
+     maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
+                                               ^
+sim_funcs.cpp:726:27: error: cannot convert ‘cv::Scalar’ to ‘double’ in initialization
+  double avgG = mean(G_hist);
+                           ^
+sim_funcs.cpp:726:9: warning: unused variable ‘avgG’ [-Wunused-variable]
+  double avgG = mean(G_hist);
+         ^
+sim_funcs.cpp: In function ‘sBattery design_battery(cv::Mat, cv::Mat)’:
+sim_funcs.cpp:34:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+sim_funcs.cpp: In function ‘sProp design_prop(cv::Mat, cv::Mat)’:
+sim_funcs.cpp:110:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+sim_funcs.cpp: In function ‘sRod design_rod(cv::Mat, cv::Mat, cv::Mat, sProp)’:
+sim_funcs.cpp:143:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+sim_funcs.cpp: In function ‘cv::Mat compute_rewards(int, sPenalty, sSys, sData, double&, double&, cv::Mat&, sPerf&)’:
+sim_funcs.cpp:390:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+funcs.cpp:1098:12: error: macro "ATD" requires 2 arguments, but only 1 given
+   mat.ATD(i) = v[i];
+            ^
+In file included from funcs.cpp:1:0:
+funcs.hpp:121:36: error: ‘vector’ does not name a type
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                    ^
+funcs.hpp:121:36: error: ISO C++ forbids declaration of ‘parameter’ with no type [-fpermissive]
+funcs.hpp:121:42: error: expected ‘,’ or ‘...’ before ‘<’ token
+ cv::Mat vector_to_Mat_double(const vector<double> v);
+                                          ^
+funcs.hpp:123:24: error: variable or field ‘write_mat_to_file’ declared void
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                        ^
+funcs.hpp:123:24: error: ‘ofstream’ was not declared in this scope
+funcs.hpp:123:24: note: suggested alternative:
+In file included from /usr/include/c++/4.8/bits/localefwd.h:41:0,
+                 from /usr/include/c++/4.8/string:43,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from funcs.hpp:4,
+                 from funcs.cpp:1:
+/usr/include/c++/4.8/iosfwd:160:34: note:   ‘std::ofstream’
+   typedef basic_ofstream<char>   ofstream;
+                                  ^
+In file included from funcs.cpp:1:0:
+funcs.hpp:123:35: error: ‘f’ was not declared in this scope
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                   ^
+funcs.hpp:123:46: error: expected primary-expression before ‘mat’
+ void write_mat_to_file(ofstream & f, cv::Mat mat);
+                                              ^
+funcs.cpp: In function ‘bool all_leqz(cv::Mat)’:
+funcs.cpp:95:33: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (int i = 0; i < src.total(); i++)
+                                 ^
+funcs.cpp:104:33: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (int i = 0; i < src.total(); i++)
+                                 ^
+funcs.cpp:93:6: warning: unused variable ‘cnt’ [-Wunused-variable]
+  int cnt = 0;
+      ^
+funcs.cpp: In function ‘cv::Mat vector_to_Mat_double(std::vector<double, std::allocator<double> >)’:
+funcs.cpp:1096:29: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (int i = 0; i < v.size(); i++)
+                             ^
+funcs.cpp:1098:7: error: ‘class cv::Mat’ has no member named ‘ATD’
+   mat.ATD(i) = v[i];
+       ^
+funcs.cpp:1100:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+funcs.cpp: At global scope:
+funcs.cpp:1102:24: error: variable or field ‘write_mat_to_file’ declared void
+ void write_mat_to_file(ofstream & f, Mat mat)
+                        ^
+funcs.cpp:1102:24: error: ‘ofstream’ was not declared in this scope
+funcs.cpp:1102:24: note: suggested alternative:
+In file included from /usr/include/c++/4.8/bits/localefwd.h:41:0,
+                 from /usr/include/c++/4.8/string:43,
+                 from /usr/local/include/opencv2/core/cvstd.hpp:58,
+                 from /usr/local/include/opencv2/core/base.hpp:56,
+                 from /usr/local/include/opencv2/core.hpp:54,
+                 from funcs.hpp:4,
+                 from funcs.cpp:1:
+/usr/include/c++/4.8/iosfwd:160:34: note:   ‘std::ofstream’
+   typedef basic_ofstream<char>   ofstream;
+                                  ^
+funcs.cpp:1102:35: error: ‘f’ was not declared in this scope
+ void write_mat_to_file(ofstream & f, Mat mat)
+                                   ^
+funcs.cpp:1102:42: error: expected primary-expression before ‘mat’
+ void write_mat_to_file(ofstream & f, Mat mat)
+                                          ^
