@@ -67,6 +67,30 @@ typedef struct sPerf
 	int failure;
 } sPerf;
 
+typedef struct sHover
+{
+	double velocity;
+	double rpm;
+	double dbeta;
+	double thrust;
+	double q;
+	double pshaft;
+	double volts;
+	double amps;
+	double effmotor;
+	double effprop;
+	double adv;
+	double ct;
+	double cp;
+	double dv;
+	double eff;
+	double pelec;
+	double pprop;
+	double clavg;
+	double cdavg;
+	int failure;
+} sHover;
+
 typedef struct sCell
 {
 	double Cost;
@@ -173,7 +197,6 @@ typedef struct sSys
 	double mass;
 	double planArea;
 	double natFreq;
-	int motorNum;
 	double cost;
 	double power;
 } sSys;

@@ -91,7 +91,6 @@ Mat find_neqz(const Mat colvector)
 */
 bool all_leqz(const Mat src)
 {	
-	int cnt = 0;
 	if (mfp(src))
 		for (int i = 0; i < src.total(); i++)
 		{
@@ -857,6 +856,7 @@ double max_double(const Mat src)
 double max_double(const Mat src, int & idxOfMax)
 {
 	double max = 0;
+	idxOfMax = 0;
 	for (int i = 0; i < src.rows * src.cols; i++)
 	{
 		double carl = src.at<double>(i);
@@ -891,21 +891,46 @@ int max_int(const Mat src)
 }
 
 /*
-	finds the mean of a matrix of floating point type 
-	(mean along one dimension not supported... yet)
+	finds the mean of a matrix of floating point type along an axis
 
 	INPUTS: src - the input matrix
+			axis - 0 means take mean across rows, 1 means take mean across columns
 	RETURNS: the mean of the matrix
 	OUTPUTS: None
+
+	EXAMPLE
+			a = [ 1  2  3  4
+				  5  6  7  8
+				  9 10 11 12
+				 13 14 15 16 ]
+		mean(a, 0) gives [ 2.5 6.5 10.5 14.5 ]
+		mean(a, 1) gives [ 7; 8; 9; 10 ]
 */
-double mean_double(const Mat src)
+Mat mean_double(const Mat src, const int axis)
 {
-	double sum = 0;
-	for (int i = 0; i < src.rows * src.cols; i++)
+	Mat sum, mean;
+	if (axis == 0)
 	{
-		sum += src.at<double>(i);
+		sum = Mat::zeros(1, src.cols, CV_64F);
+		for (int i = 0; i < src.rows; i++)
+		{
+			Range rowRange(i, i+1);
+			Range colRange(0, src.cols);
+			sum += src(rowRange, colRange);
+		}
+		mean = sum/(double)src.rows;
 	}
-	double mean = sum/(double)src.total();
+	if (axis == 1)
+	{
+		sum = Mat::zeros(src.rows, 1, CV_64F);
+		for (int i = 0; i < src.cols; i++)
+		{
+			Range rowRange(0, src.rows);
+			Range colRange(i, i+1);
+			sum += src(rowRange, colRange);
+		}
+		mean = sum/(double)src.cols;
+	}
 
 	return mean;
 }
@@ -1131,6 +1156,7 @@ std::vector<double> Mat_to_vector_double(const cv::Mat mat)
 	return v;
 }
 
+// Writes to file in a pretty, human-readable format
 void write_mat_to_file(std::ofstream & f, Mat mat)
 {
 	f << "[";
@@ -1168,6 +1194,45 @@ void write_mat_to_file(std::ofstream & f, Mat mat)
 				else
 				{
 					f << ";\n";
+				}
+			}
+			else
+			{
+				f << ", ";
+			}
+		}
+	}
+}
+
+// Writes to file in a CSV format
+void write_mat_to_csv(std::ofstream & f, Mat mat)
+{
+	int r = mat.rows;
+	int c = mat.cols;
+	for (int j = 0; j < r; j++)
+	{
+		for (int i = 0; i < c; i++)
+		{
+			if (mat.type() == CV_64F)
+			{
+				double x = mat.at<double>(j, i);
+				f << x;
+			}
+			else
+			{
+				int x = mat.at<int>(j, i);
+				f << x;
+			}
+				
+			if (i == c - 1)
+			{
+				if (j == r - 1)
+				{
+					// nothing
+				}
+				else
+				{
+					f << "\n";
 				}
 			}
 			else

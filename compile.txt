@@ -1,0 +1,1 @@
+g++ -O0 -g main.cpp sim_funcs.cpp CCEA.cpp NN.cpp funcs.cpp -o uav_mas -L `pkg-config --cflags --libs opencv`

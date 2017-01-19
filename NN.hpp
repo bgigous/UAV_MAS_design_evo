@@ -26,9 +26,9 @@ class NN
 		vector<double> weights;
 
 		double getInnerWeight(int inputNode, int hiddenNode);
-		double setInnerWeight(int inputNode, int hiddenNode, double newWeight);
+		void setInnerWeight(int inputNode, int hiddenNode, double newWeight);
 		double getOuterWeight(int hiddenNode, int outputNode);
-		double setOuterWeight(int hiddenNode, int outputNode, double newWeight);
+		void setOuterWeight(int hiddenNode, int outputNode, double newWeight);
 
 		// Sets the specified weight to a random value between 0 and 1
 		void RandomizeWeight(int weight);

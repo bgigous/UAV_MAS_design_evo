@@ -1,5 +1,4 @@
 ﻿#include "NN.hpp"
-#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -77,7 +76,7 @@ double NN::getInnerWeight(int inputNode, int hiddenNode)
 	return weights[inputNode + hiddenNode*(numInputs + 1)];
 }
 
-double NN::setInnerWeight(int inputNode, int hiddenNode, double newWeight)
+void NN::setInnerWeight(int inputNode, int hiddenNode, double newWeight)
 {
 	// The weight list is arranged such that the weights from all input nodes
 	// (incl. bias) to the first hidden node are listed first, and so on...
@@ -91,7 +90,7 @@ double NN::getOuterWeight(int hiddenNode, int outputNode)
 	return weights[numInnerWeights + hiddenNode + outputNode*(numHidden + 1)];
 }
 
-double NN::setOuterWeight(int hiddenNode, int outputNode, double newWeight)
+void NN::setOuterWeight(int hiddenNode, int outputNode, double newWeight)
 {
 	// The weight list is arranged such that the weights from all hidden nodes
 	// (incl. bias) to the first output node are listed first, and so on...
@@ -116,7 +115,7 @@ double NN::Sigmoid(double x)
 double NN::HyperbolicTan(double x)
 {
 	double z = exp(-2*x);
-	return (1 - z)/(1 + z); 
+	return (1 - z)/(1 + z);
 }
 
 // Resets all the weights to a random value
@@ -191,7 +190,6 @@ void NN::FeedForward(vector<double> inputs)
 NN NN::Clone()
 {
 	NN nn(numInputs, numHidden, numOutputs);
-
 	// Copy weights
 	for (int w = 0; w < numInnerWeights + numOuterWeights; w++)
 	{

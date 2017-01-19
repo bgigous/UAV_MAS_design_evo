@@ -144,53 +144,33 @@ void CCEA::Init(const vector<int> vecNumInputs, const vector<int> vecNumHidden, 
 void CCEA::Mutate()
 {
 	// Iterate through populations (LATER?: use the : notation thing)
-	for (vector<vector<NN> >::iterator popIt = populations.begin();
-		popIt != populations.end();
-		popIt++)
+	for (int p = 0; p < numPops; p++)
 	{
-		if (!popIt->empty())
+		// Iterate through all individuals of the population
+		for (int n = 0; n < popSize*2; n++)
 		{
-			// Iterate through all individuals of the population
-			for (vector<NN>::iterator nnIt = popIt->begin();
-				nnIt != popIt->end();
-				nnIt++)
+			// Make a copy of the NN to mutate
+			NN nnMut = populations[p][n].Clone();
+			int numWeights = nnMut.GetNumWeights();
+
+			// Create a list of random (unique) numbers, ranging from 0 to the highest
+			// possible weight index.
+			// The size of this list depends on how much radiation was specified
+			vector<int> weightsToMutate = 
+				RandomList(numWeights, (int)(numWeights*percRad));
+
+			// Iterate through this list...
+			for (vector<int>::iterator wtIt = weightsToMutate.begin();
+				wtIt != weightsToMutate.end();
+				wtIt++)
 			{
-				NN nnMut;
-				try
-				{				
-					// Make a copy of the NN to mutate
-					nnMut = nnIt->Clone();
-				}
-				catch (std::bad_alloc& ba)
-				{
-					cout << nnIt->GetNumInputs() << endl;
-					cout << nnIt->GetNumHidden() << endl;
-					cout << nnIt->GetNumOutputs() << endl;
-					cout << populations.size() << endl;
-					cout << popIt->size() << endl;
-					exit(-1);
-				}
-				int numWeights = nnMut.GetNumWeights();
-
-				// Create a list of random (unique) numbers, ranging from 0 to the highest
-				// possible weight index.
-				// The size of this list depends on how much radiation was specified
-				vector<int> weightsToMutate = 
-					RandomList(numWeights, (int)(numWeights*percRad));
-
-				// Iterate through this list...
-				for (vector<int>::iterator wtIt = weightsToMutate.begin();
-					wtIt != weightsToMutate.end();
-					wtIt++)
-				{
-					// And perturb the corresponding weights
-					// The higher the standard deviation specified, the more severe the changes
-					nnMut.SetWeight(*wtIt, nnMut.GetWeight(*wtIt) + GenerateRandFloat(0, stdDev));
-				}
-
-				// Add this mutated copy to the population
-				popIt->push_back(nnMut);
+				// And perturb the corresponding weights
+				// The higher the standard deviation specified, the more severe the changes
+				nnMut.SetWeight(*wtIt, nnMut.GetWeight(*wtIt) + GenerateRandFloat(0, stdDev));
 			}
+
+			// Add this mutated copy to the population
+			populations[p].push_back(nnMut);
 		}
 	}
 
@@ -200,11 +180,16 @@ void CCEA::Mutate()
 	{
 		// Iterate through all individuals of the population
 		for (int n = 0; n < popSize; n++)
-		{
+		{	
+			vector<double> myStatesForNow;
 			for (int s = 0; s < states[p][n].size(); s++)
-			// Only want to go through first half! Gonna copy dem states
-			// We'll use the same states for the child as the parent
-			states[p][n+popSize].push_back(states[p][n][s]);
+			{
+				// Only want to go through first half! Gonna copy dem states
+				// We'll use the same states for the child as the parent
+				myStatesForNow.push_back(states[p][n][s]);
+			}
+			// push new "individual states" thing to the populations of asd states
+			states[p].push_back(myStatesForNow);
 		}
 	}
 }
@@ -254,7 +239,7 @@ void CCEA::SelectFittest()
 			}
 
 			// Sort the list of losers so they're easier to remove
-			sort(losers.begin(), losers.end() + popSize);
+			sort(losers.begin(), losers.end());
 
 			// Iterate through loser indices (in reverse)
 			for (vector<int>::reverse_iterator loserIt = losers.rbegin();
@@ -294,7 +279,7 @@ void CCEA::CreateTeams()
 	vector< vector<int> > teamMembers;
 	for (int n = 0; n < numPops; n++)
 	{
-		teamMembers.push_back(RandomList(0, popSize*2));
+		teamMembers.push_back(RandomList(popSize*2, popSize*2));
 	}
 	for (int i = 0; i < popSize*2; i++)
 	{
@@ -318,10 +303,10 @@ void CCEA::CreateTeams()
 void CCEA::ReformPopulations()
 {
 	populations.clear();
-	for (int t = 0; t < popSize*2; t++)
+	for (int n = 0; n < numPops; n++)
 	{
 		vector<NN> pop;
-		for (int n = 0; n < numPops; n++)
+		for (int t = 0; t < popSize*2; t++)
 		{
 			pop.push_back(teams[t][n]);
 		}
@@ -334,6 +319,7 @@ vector< vector<double> > CCEA::GetOutputsOfTeam(const int t)
 	vector< vector<double> > outputs;
 	for (int n = 0; n < numPops; n++)
 	{
+		teams[t][n].FeedForward(*statesPtrs[t][n]);
 		outputs.push_back(teams[t][n].GetOutputs());
 	}
 	return outputs;

@@ -1,5 +1,9 @@
 #define NUMAGENTS 13
 
+#define COUT std::cout
+#define ENDL std::endl
+
+#include <cmath> // to check for inf
 #include "sim_structs.hpp"
 #include "sim_funcs.hpp"
 #include "funcs.hpp"
@@ -8,6 +12,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <algorithm>
+
+#define RAND_DOUBLE ((double)rand()/(double)RAND_MAX)
 
 sData load_data()
 {
@@ -31,7 +37,7 @@ sBattery design_battery(const cv::Mat actions, const cv::Mat batteryData)
 		temp.at<double>(0, 3)/1000.0
 	};
 
-	return create_battery(cell, (int)actions.at<double>(1, 0), (int)actions.at<double>(2, 0));
+	return create_battery(cell, (int)actions.at<double>(1, 0) + 1, (int)actions.at<double>(2, 0) + 1);
 }
 
 sBattery create_battery(sCell cell, double sConfigs, double pConfigs)
@@ -43,9 +49,9 @@ sBattery create_battery(sCell cell, double sConfigs, double pConfigs)
 	double Cap = cell.Cap * pConfigs;
 	double C = cell.C;
 	double Imax = C * Cap;
-	double Energy = Volt * Cap;
+	double Energy = Volt * Cap * 3600.0;
 	
-	sBattery battery = { cell, sConfigs, pConfigs, Cost, Mass, Volt, Cap, C, Imax, Energy };
+	sBattery battery = { cell, (int)sConfigs, (int)pConfigs, Cost, Mass, Volt, Cap, C, Imax, Energy };
 	return battery;
 }
 
@@ -65,7 +71,7 @@ sMotor design_motor(const cv::Mat actions, const cv::Mat motorData)
 	double planArea = (M_PI/4) * pow(Diam, 2);
 	int Num = row;
 	
-	sMotor motor = { kv, R0, I0, Imax, Pmax, Mass, Cost, Diam, planArea };
+	sMotor motor = { kv, R0, I0, Imax, Pmax, Mass, Cost, Diam, planArea, Num };
 	return motor;
 }
 
@@ -157,6 +163,7 @@ sRod create_rod(const sMaterial material, const double length, const double diam
 	double Cost = mat.Cost*Vol;
 	double planArea = Length*Dia;
 	sRod rod = { mat, Length, Dia, Thick, Area, Amoment, Stiffness, Vol, Mass, Cost, planArea };
+	return rod;
 }
 
 sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, const sProp prop, const sRod rod)
@@ -179,39 +186,48 @@ sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, co
 	return sys;
 }
 
-void update_states(std::vector< std::vector<double> * > statesPtrs, const sPerf hover, const cv::Mat constraints, const sSys sys)
+void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys)
 {
 	// Well, if we can prevent updating states for ALL networks, maybe the code would be a bit faster...
 	// should do that sometime
 	for (int ag = 0; ag < NUMAGENTS; ag++)
 	{
-		switch (ag)
+		/*
+		statesPtrs[ag]->at(0) = RAND_DOUBLE;
+		statesPtrs[ag]->at(1) = RAND_DOUBLE;
+		statesPtrs[ag]->at(2) = RAND_DOUBLE;
+		*/
+		switch (115)
 		{
 			case 0:
 			case 1:
 			case 2:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(2, 0), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(3, 0), 0.0);
+				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 2), 0.0);
+				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 3), 0.0);
+				break;
 			case 3:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(5, 0), 0.0);
+				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
+				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 5), 0.0);
+				break;
 			case 4:
 			case 5:
 			case 6:
 			case 7:
 			case 8:
 			case 9:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(4, 0), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0.0);
+				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
+				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
+				break;
 			case 10:
 			case 11:
 			case 12:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(1, 0), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(6, 0), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(7, 0), 0.0);
+				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 6), 0.0);
+				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
+				break;
 		}
 	}
 }
@@ -234,6 +250,7 @@ cv::Mat get_actions(const int t, CCEA* ccea)
 				int actionTemp;// action is number of output which holds max value
 				max_double(vector_to_Mat_double(outputs[ag]), actionTemp); 
 				actions.ATD(ag, 0) = (double)actionTemp;
+				break;
 			case 5:
 			case 6:
 			case 7:
@@ -254,9 +271,9 @@ void write_propfile(const sProp prop, const sFoil foil)
 	double root = 0.02;
 	cv::Mat radiusvect = linspace(root, radius, sects);
 	cv::Mat anglevect = prop.angleRoot + radiusvect*(prop.angleTip - prop.angleRoot)/radius;
-	cv::Mat chordvect = prop.angleRoot + radiusvect*(prop.angleTip - prop.angleRoot)/radius;
+	cv::Mat chordvect = prop.chordRoot + radiusvect*(prop.chordTip - prop.chordRoot)/radius;
 
-	ofstream propfile("propfile");
+	ofstream propfile("propfile", std::ofstream::out);
 	propfile.setf(ios::fixed, ios::floatfield);
 	propfile.precision(6);
 	if (propfile.is_open())
@@ -280,9 +297,9 @@ void write_propfile(const sProp prop, const sFoil foil)
 	else std::cout << "Well shit, can't open the propfile" << std::endl;
 }
 
-cv::Mat calc_constraints(const sSys sys, const sPerf hover, const int fail)
+cv::Mat calc_constraints(const sSys sys, const sHover hover, const int fail)
 {
-	cv::Mat constraints = cv::Mat::zeros(8, 1, CV_64F);
+	cv::Mat constraints = cv::Mat::zeros(1, 8, CV_64F);
 	if (fail)
 	{
 		constraints.ATD(0, 0) = 10*fail;
@@ -290,19 +307,18 @@ cv::Mat calc_constraints(const sSys sys, const sPerf hover, const int fail)
 	else
 	{
 		// hover should have only one element for each thing below
-		if (hover.volts.total() != 1) std::cout << "HONEY SCONES" << std::endl;
 		double thrustReq = sys.mass*9.81/4.0;
-		constraints.ATD(1, 0) = 10*(1-hover.thrust.ATD(0,0)/thrustReq); // factor of 10 arbitrary
-		constraints.ATD(2, 0) = (4*hover.amps.ATD(0,0))/sys.battery.Imax - 1.0; // perf is from EACH motor
-		constraints.ATD(3, 0) = hover.volts.ATD(0,0)/sys.battery.Volt - 1.0;
-		constraints.ATD(4, 0) = hover.amps.ATD(0,0)/sys.motor.Imax - 1.0;
-		constraints.ATD(5, 0) = hover.pelec.ATD(0,0)/sys.motor.Pmax - 1.0;
-		double forcedFreq = hover.rpm.ATD(0,0)/60.0;
+		constraints.ATD(0, 1) = 10*(1-hover.thrust/thrustReq); // factor of 10 arbitrary
+		constraints.ATD(0, 2) = (4*hover.amps)/sys.battery.Imax - 1.0; // perf is from EACH motor
+		constraints.ATD(0, 3) = hover.volts/sys.battery.Volt - 1.0;
+		constraints.ATD(0, 4) = hover.amps/sys.motor.Imax - 1.0;
+		constraints.ATD(0, 5) = hover.pelec/sys.motor.Pmax - 1.0;
+		double forcedFreq = hover.rpm/60.0;
 		double minnatFreq = 2*forcedFreq;
-		constraints.ATD(6, 0) = 1.0 - sys.natFreq/minnatFreq;
+		constraints.ATD(0, 6) = 1.0 - sys.natFreq/minnatFreq;
 		double maxDefl = 0.01*sys.rod.Length;
-		double defl = hover.thrust.ATD(0,0)/sys.rod.Stiffness;
-		constraints.ATD(7, 0) = defl/maxDefl - 1.0;
+		double defl = hover.thrust/sys.rod.Stiffness;
+		constraints.ATD(0, 7) = defl/maxDefl - 1.0;
 	}
 	return constraints;
 }
@@ -359,7 +375,7 @@ void counter_calc(const sData data, sCell & avgCell, sMotor & avgMotor, sProp & 
 }
 
 cv::Mat compute_rewards(const int D, const sPenalty penalty, const sSys sys, const sData data, 
-					double & G, double & flightTime, cv::Mat & constraints, sPerf & hover)
+					double & G, double & flightTime, cv::Mat & constraints, sHover & hover)
 {
 	cv::Mat rewards;
 	G = calc_G(penalty, sys, flightTime, constraints, hover);
@@ -394,6 +410,9 @@ cv::Mat compute_rewards(const int D, const sPenalty penalty, const sSys sys, con
 				case 2:
 					counterBattery = create_battery(sys.battery.Cell, sys.battery.sConfigs, 1);
 					break;
+				case 3:
+				case 4:
+					break; // don't do anything yet
 				case 5:
 					counterProp = create_prop(avgProp.diameter, sys.prop.angleRoot, sys.prop.angleTip, sys.prop.chordRoot, sys.prop.chordTip, 0, 0);
 					break;
@@ -445,11 +464,11 @@ cv::Mat compute_rewards(const int D, const sPenalty penalty, const sSys sys, con
 
 double calc_G(const sPenalty penalty, const sSys sys)
 {
-	double flightTime; cv::Mat constraints; sPerf hover; // these are all dummies
+	double flightTime; cv::Mat constraints; sHover hover; // these are all dummies
 	return calc_G(penalty, sys, flightTime, constraints, hover);
 }
 
-double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::Mat & constraints, sPerf & hover)
+double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::Mat & constraints, sHover & hover)
 {
 	double G;
 	
@@ -459,11 +478,11 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 	hover = calc_hover(sys);
 	constraints = calc_constraints(sys, hover, fail);
 	double totalCost = sys.battery.Cost + sys.motor.Cost*4 + sys.rod.Cost*4;
-	flightTime = sys.battery.Energy/(4.0*hover.pelec.ATD(0, 0));
+	flightTime = sys.battery.Energy/(4.0*hover.pelec);
 
-	if (hover.pelec.empty())
+	if (hover.pelec == 1.0/0.0) // ASK DANIEL
 		fail = 1;
-	else if (hover.failure == 1)
+	if (hover.failure == 1)
 		fail = 1;
 
 	G = flightTime; // default
@@ -475,7 +494,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		{
 			for (int i = 0; i < constraints.total(); i++)
 			{
-				if (constraints.ATD(i, 0) > 0)
+				if (constraints.ATD(0, i) > 0)
 				{
 					G = penalty.death; // never mind, off with your head
 					break;
@@ -488,10 +507,10 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
 			for (int i = 0; i < constraints.total(); i++)
 			{
-				if (constraints.ATD(i, 0) > 0)
+				if (constraints.ATD(0, i) > 0)
 				{
 					death = 1;
-					conRewards.ATD(i, 0) = penalty.lin*constraints.ATD(i, 0);
+					conRewards.ATD(0, i) = penalty.lin*constraints.ATD(0, i);
 				}
 			}
 			if (death)
@@ -502,8 +521,8 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
 			for (int i = 0; i < constraints.total(); i++)
 			{
-				if (constraints.ATD(i, 0) > 0)
-					conRewards.ATD(i, 0) = -penalty.R*pow(1 + constraints.ATD(i, 0), 2.0);
+				if (constraints.ATD(0, i) > 0)
+					conRewards.ATD(0, i) = -penalty.R*pow(1 + constraints.ATD(0, i), 2.0);
 			}
 			double temp = flightTime + cv::sum(conRewards)[0];
 			if (penalty.quadtrunc >= temp)
@@ -516,8 +535,8 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
 			for (int i = 0; i < constraints.total(); i++)
 			{
-				if (constraints.ATD(i, 0) > 0)
-					conRewards.ATD(i, 0) = -penalty.Const;
+				if (constraints.ATD(0, i) > 0)
+					conRewards.ATD(0, i) = -penalty.Const;
 			}
 			double temp = flightTime + cv::sum(conRewards)[0];
 			if (penalty.quadtrunc >= temp)
@@ -530,8 +549,8 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
 			for (int i = 0; i < constraints.total(); i++)
 			{
-				if (constraints.ATD(i, 0) > 0)
-					conRewards.ATD(i, 0) = penalty.lin*constraints.ATD(i, 0) - 100;
+				if (constraints.ATD(0, i) > 0)
+					conRewards.ATD(0, i) = penalty.lin*constraints.ATD(0, i) - 100;
 			}
 			G = flightTime + cv::sum(conRewards)[0];
 		}
@@ -542,9 +561,10 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		else
 			std::cout << "SOMEONE SCREWED UP" << std::endl;
 	}
+	return G;
 }
 
-sPerf calc_hover(const sSys sys)
+sHover calc_hover(const sSys sys)
 {
 	double thrustReq = sys.mass*9.81/4.0;
 
@@ -558,34 +578,74 @@ sPerf calc_hover(const sSys sys)
 	std::string ampsStr = "0";
 	std::string peleStr = "0";
 
-	sPerf hover = call_qprop(velStr, rpmStr, voltStr, dBetaStr, thrustStr, torqueStr, ampsStr, peleStr, mode, sys.motor.Num);
+	sPerf perf = call_qprop(velStr, rpmStr, voltStr, dBetaStr, thrustStr, torqueStr, ampsStr, peleStr, mode, sys.motor.Num);
+	
+	double pelec = 1.0/0.0; //inf
+	if (!(perf.pelec.empty()))
+		pelec = perf.pelec.ATD(0, 0);	
 
-	if (hover.thrust.ATD(0,0) < 0.9*thrustReq)
+	sHover hover = {
+		.velocity = perf.velocity.ATD(0, 0),
+		.rpm = perf.rpm.ATD(0, 0),
+		.dbeta = perf.dbeta.ATD(0, 0),
+		.thrust = perf.thrust.ATD(0, 0),
+		.q = perf.q.ATD(0, 0),
+		.pshaft = perf.pshaft.ATD(0, 0),
+		.volts = perf.volts.ATD(0, 0),
+		.amps= perf.amps.ATD(0, 0),
+		.effmotor = perf.effmotor.ATD(0, 0),
+		.effprop = perf.effprop.ATD(0, 0),
+		.adv = perf.adv.ATD(0, 0),
+		.ct = perf.ct.ATD(0, 0),
+		.cp = perf.cp.ATD(0, 0),
+		.dv = perf.dv.ATD(0, 0),
+		.eff = perf.eff.ATD(0, 0),
+		.pelec = pelec,
+		.pprop = perf.pprop.ATD(0, 0),
+		.clavg = perf.clavg.ATD(0, 0),
+		.cdavg = perf.cdavg.ATD(0, 0),
+		.failure = perf.failure // 1 if asterisks were found in qprop output
+	};
+
+	if (hover.thrust < 0.9*thrustReq)
 		hover.failure = 1;
-	else hover.failure = 0;
 
-	return hover; // Can't exactly check for nan...
+	if (std::isinf(hover.pelec))
+		hover.pelec = pow(10, 10);
+
+	return hover;
 }
 
 sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, std::string dBetaStr, std::string thrustStr, 
 				std::string torqueStr, std::string ampsStr, std::string peleStr, std::string mode, int motorNum)
 {
+	bool starFlag = false; // Whether or not output from QProp contains asterisks
 	std::string motorNumStr = to_str<int>(motorNum);
-	std::string qpropinput = "qprop propfile motorfiles\\motorfile" + motorNumStr + " " + velStr + " " + \
-						rpmStr + " " + voltStr + " " + dBetaStr + " " + thrustStr + " " + torqueStr +\
-						" " + ampsStr + " " + peleStr + "[\"]";
-
+	std::string qpropinput = "./qprop propfile motorfiles/motorfile" + motorNumStr + " " + velStr + " " + \
+						rpmStr + " " + voltStr + " " + dBetaStr + " " + thrustStr;/* + " " + torqueStr +\
+						" " + ampsStr + " " + peleStr + " \"[\\\"]\"";*/
+	//std::cout << qpropinput << std::endl;
 	FILE* qpropPipe = popen(qpropinput.c_str(), "r");
 	char buffer[128];
-    std::string result = "";
+	std::string result = "";
 	if (qpropPipe)
 	{ // Get output of program
-        while (!feof(qpropPipe)) { // while not end of file
-            if (fgets(buffer, sizeof(buffer), qpropPipe) != NULL)
-                result += buffer; // Add contents of buffer to string
-        }
+		while (!feof(qpropPipe)) { // while not end of file
+			if (fgets(buffer, sizeof(buffer), qpropPipe) != NULL)
+				result += buffer; // Add contents of buffer to string
+		}
 	}
-    pclose(qpropPipe);
+	pclose(qpropPipe);
+
+	std::ofstream qpropOutputFile("qprop_output.txt", std::ofstream::out);
+	if (qpropOutputFile.is_open())
+	{
+		qpropOutputFile << result;
+		qpropOutputFile << "\n" << qpropinput;
+		qpropOutputFile.close();
+	}
+	else std::cout << "Well shit, can't open the qpropOutputFile" << std::endl;
+	//std::cout << "RESULT: " << result << std::endl;
 	
 	std::stringstream ss(result);
 	std::string line;
@@ -599,7 +659,7 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 			if (line == " " || line == "\n" || line == "" || line.c_str()[0] == '#')
 				continue;
 			cv::Mat crayon = cv::Mat::zeros(1, 24, CV_64F);
-			// TODO TODO TODO TODO TODO TODO TODO
+			// TODO TODO TODO TODO TODO TODO TODO Haven't tried multipoint yet; dunno if this code is good, y'know?
 			sscanf(line.c_str(), "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
 				&crayon.ATD(0, 0), &crayon.ATD(0, 1), &crayon.ATD(0, 2), &crayon.ATD(0, 3), 
 				&crayon.ATD(0, 4), &crayon.ATD(0, 5), &crayon.ATD(0, 6), &crayon.ATD(0, 7), 
@@ -614,13 +674,24 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 	}
 	else // singlepoint
 	{
-		// TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		while (std::getline(ss, line, '\n'))
 		{
-			if (line == " " || line == "\n" || line == "" || line.c_str()[0] == '#')
+			//std::cout << line << std::endl;
+			i++;
+			if (line == " " || line == "\n" || line == "" || i != 18)
 				continue;
+
+			// Check for asterisks
+			std::size_t stars = line.find("*");
+			if (stars != std::string::npos)
+			{
+				// Found asterisk characters! Assume design is failure and set starFlag to true
+				starFlag = true;
+			}
+
+			// Remove #s
+			line.erase(std::remove(line.begin(), line.end(), '#'), line.end());
 			cv::Mat crayon = cv::Mat::zeros(1, 24, CV_64F);
-			// TODO TODO TODO TODO TODO TODO TODO
 			sscanf(line.c_str(), "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
 				&crayon.ATD(0, 0), &crayon.ATD(0, 1), &crayon.ATD(0, 2), &crayon.ATD(0, 3), 
 				&crayon.ATD(0, 4), &crayon.ATD(0, 5), &crayon.ATD(0, 6), &crayon.ATD(0, 7), 
@@ -629,10 +700,11 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 				&crayon.ATD(0, 16), &crayon.ATD(0, 17), &crayon.ATD(0, 18), &crayon.ATD(0, 19), 
 				&crayon.ATD(0, 20), &crayon.ATD(0, 21), &crayon.ATD(0, 22), &crayon.ATD(0, 23));
 
-			assign_mat(qpropoutput, crayon.t(), i, i, -1, -1, -1, -1, -1, -1);
-			i++;
+			//std::cout << crayon << std::endl;
+			assign_mat(qpropoutput, crayon, 0, 0, -1, -1, -1, -1, -1, -1);
+			//std::cout << qpropoutput << endl;
 			break; // ???
-			// Or maybe we just have to read line 18
+			// Or maybe we just have to read line 18 (EDIT: which I did now)
 		}
 	}
 	sPerf perf;
@@ -655,6 +727,10 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 	assign_mat(perf.pprop, qpropoutput, -1, -1, -1, -1, -1, -1, 16, 16);
 	assign_mat(perf.clavg, qpropoutput, -1, -1, -1, -1, -1, -1, 17, 17);
 	assign_mat(perf.cdavg, qpropoutput, -1, -1, -1, -1, -1, -1, 18, 18);
+
+	if (starFlag)
+		perf.failure = 1;
+
 	return perf;
 }
 
@@ -714,6 +790,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		
 		for (int g = 0; g < numGens; g++)
 		{
+			begin_generation:
 			penalty.R = penFxnA*exp(penFxnB*g);
 			
 			ccea.Mutate();
@@ -729,7 +806,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 			cv::Mat team_rewards = cv::Mat::zeros(NUMAGENTS, popSize*2, CV_64F);
 			for (int t = 0; t < popSize*2; t++)
 			{
-				//std::vector< std::vector<double> > (*GetOutputs)(const int) = ccea.GetOutputsOfTeam;
+				//std::cout << "TEAM " << t << endl;
 				
 				assign_mat(actions, get_actions(t, &ccea));
 				/*
@@ -749,11 +826,13 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 
 				cv::Mat constraints;
 				double flightTime;
-				sPerf perf, hover;
+				sHover hover;
 				cv::Mat rewards = compute_rewards(D, penalty, sys, data, /* <-- inputs */
 								G, flightTime, constraints, hover); /* <-- outputs */
+				//COUT << rewards.t() << ENDL;
 				team_G.ATD(t, 0) = G;
 				team_flightTime.ATD(t, 0) = flightTime;
+				//cout << constraints << endl;
 				assign_mat(team_constraints, constraints, t, t, -1, -1, -1, -1, -1, -1);
 				assign_mat(team_rewards, rewards, -1, -1, t, t, -1, -1, -1, -1);
 				
@@ -785,12 +864,29 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				//maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
 			}
 			
-			std::cout << r << ", " << g << std::endl;
+			std::cout << r << ", " << g << ": " << G << std::endl;
 		}
 	}
-	double avgG = cv::mean(G_hist)[0];
+	//COUT << G_hist << ENDL;
+	cv::Mat avgG = mean_double(G_hist, 0);
+	//COUT << avgG << ENDL;
 
-	/* [record juicy info here] */
+	cv::Mat range = range_double(1, numGens).t();
+	cv::Mat outputAvgG = range.clone(), outputAvgFlight = range.clone();
+	//COUT << output << ENDL;
+	//COUT << output.cols << " " << avgG.cols << ENDL;
+	assign_col(outputAvgG, avgG.t()/60.0, 1, 1, 0, 0); // second column is avgG
+
+	std::ofstream outputFile("avgG.csv");
+	write_mat_to_csv(outputFile, outputAvgG);
+	outputFile.close();
+
+	cv::Mat avgFlight = mean_double(flightTime_hist, 0);
+	assign_col(outputAvgFlight, avgFlight.t()/60.0, 1, 1, 0, 0); // second column is avgG
+	
+	outputFile.open("avgFlight.csv");
+	write_mat_to_csv(outputFile, outputAvgFlight);
+	outputFile.close();
 }
 
 // COUNTER CALC STUFF

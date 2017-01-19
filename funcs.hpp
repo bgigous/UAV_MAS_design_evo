@@ -110,7 +110,7 @@ double max_double(const cv::Mat src, int & idxOfMax);
 int max_int(const cv::Mat src);
 
 /* finds the mean of a matrix of floating point type */
-double mean_double(const cv::Mat src);
+cv::Mat mean_double(const cv::Mat src, const int axis);
 
 /* creates a range of values, similar to a:b in matlab, where a and b are integers */
 /* NOTE: although the params are ints, the Mat will be double */
@@ -132,7 +132,10 @@ cv::Mat vector_to_Mat_double(const std::vector<double> v);
 
 std::vector<double> Mat_to_vector_double(const cv::Mat mat);
 
+// Writes to file in a pretty, human-readable format
 void write_mat_to_file(std::ofstream & f, cv::Mat mat);
+// Writes to file in a CSV format
+void write_mat_to_csv(std::ofstream & f, cv::Mat mat);
 
 // Assuming file is csv
 cv::Mat read_mat_from_file(const std::string filename);
