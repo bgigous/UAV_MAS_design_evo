@@ -39,7 +39,7 @@ vector<int> RandomList(unsigned int max, unsigned int length, unsigned int min =
 	vector<int> range = Range(min, max);
 	vector<int> list;
 
-	for (int i = 0; i < length; i++)
+	for (size_t i = 0; i < length; i++)
 	{
 		int idx = rand() % range.size();
 		list.push_back(range[idx]);
@@ -79,7 +79,7 @@ CCEA::CCEA(int numPops, int popSize, double sd, double percRad) :
  */
 void CCEA::Init(const vector<int> vecNumInputs, const vector<int> vecNumHidden, const vector<int> vecNumOutputs)
 {
-	if ( vecNumInputs.size() != numPops )
+	if ( (int)vecNumInputs.size() != numPops )
 	{
 		cout << "ERROR CCEA Init(): Vectors aren't the same size!" << endl;
 		return;
@@ -182,7 +182,7 @@ void CCEA::Mutate()
 		for (int n = 0; n < popSize; n++)
 		{	
 			vector<double> myStatesForNow;
-			for (int s = 0; s < states[p][n].size(); s++)
+			for (size_t s = 0; s < states[p][n].size(); s++)
 			{
 				// Only want to go through first half! Gonna copy dem states
 				// We'll use the same states for the child as the parent
@@ -327,7 +327,7 @@ vector< vector<double> > CCEA::GetOutputsOfTeam(const int t)
 
 void CCEA::AssignFitness(const int t, const vector<double> fitnesses)
 {
-	if (fitnesses.size() != numPops)
+	if ((int)fitnesses.size() != numPops)
 	{
 		cout << "ERROR CCEA AssignFitness: not enough fitnesses" << endl;
 	}

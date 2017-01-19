@@ -15,6 +15,7 @@
 
 #define RAND_DOUBLE ((double)rand()/(double)RAND_MAX)
 
+/* Load data from the CSVs containing data */
 sData load_data()
 {
 	sData data;
@@ -25,21 +26,26 @@ sData load_data()
 	return data;
 }
 
+/* Design a battery given collective actions of the agents */
 sBattery design_battery(const cv::Mat actions, const cv::Mat batteryData)
 {
 	cv::Mat temp;
+	// row in the data (battery cell agent's action)
 	int row = (int)actions.at<double>(0, 0);
+	// put row of data into a temporary matrix
 	assign_mat(temp, batteryData, -1, -1, -1, -1, row, row, -1, -1);
 	sCell cell = {
-		temp.at<double>(0, 0),
-		temp.at<double>(0, 1)/1000.0,
-		temp.at<double>(0, 2),
-		temp.at<double>(0, 3)/1000.0
+		temp.at<double>(0, 0),			// cost
+		temp.at<double>(0, 1)/1000.0,	// Cap
+		temp.at<double>(0, 2),			// C
+		temp.at<double>(0, 3)/1000.0	// Mass
 	};
 
+	// create a battery with the cell; connect cells with certain number of serial and parallel connections
 	return create_battery(cell, (int)actions.at<double>(1, 0) + 1, (int)actions.at<double>(2, 0) + 1);
 }
 
+/* Calculate characteristics of battery after picking a cell, serial configs, and parallel configs */
 sBattery create_battery(sCell cell, double sConfigs, double pConfigs)
 {
 	int numCells = sConfigs * pConfigs;
@@ -55,6 +61,7 @@ sBattery create_battery(sCell cell, double sConfigs, double pConfigs)
 	return battery;
 }
 
+/* Design a battery given collective actions of the agents */
 sMotor design_motor(const cv::Mat actions, const cv::Mat motorData)
 {
 	cv::Mat temp;
@@ -287,7 +294,7 @@ void write_propfile(const sProp prop, const sFoil foil)
 		propfile << "1 1 1\n";
 		propfile << "0 0 0\n";
 
-		for (int i =0; i < radiusvect.total(); i++)
+		for (size_t i =0; i < radiusvect.total(); i++)
 		{
 			propfile << radiusvect.ATD(i, 0) << " " << chordvect.ATD(i, 0) << " " << anglevect.ATD(i, 0) << "\n";
 		}
@@ -477,7 +484,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 	int fail = 0;
 	hover = calc_hover(sys);
 	constraints = calc_constraints(sys, hover, fail);
-	double totalCost = sys.battery.Cost + sys.motor.Cost*4 + sys.rod.Cost*4;
+	//double totalCost = sys.battery.Cost + sys.motor.Cost*4 + sys.rod.Cost*4;
 	flightTime = sys.battery.Energy/(4.0*hover.pelec);
 
 	if (hover.pelec == 1.0/0.0) // ASK DANIEL
@@ -492,7 +499,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 	{
 		if (penalty.Mode == "death")
 		{
-			for (int i = 0; i < constraints.total(); i++)
+			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
 				{
@@ -505,7 +512,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		{
 			int death = 0;
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
-			for (int i = 0; i < constraints.total(); i++)
+			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
 				{
@@ -519,7 +526,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		else if (penalty.Mode == "quad")
 		{
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
-			for (int i = 0; i < constraints.total(); i++)
+			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
 					conRewards.ATD(0, i) = -penalty.R*pow(1 + constraints.ATD(0, i), 2.0);
@@ -533,7 +540,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		else if (penalty.Mode == "const")
 		{
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
-			for (int i = 0; i < constraints.total(); i++)
+			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
 					conRewards.ATD(0, i) = -penalty.Const;
@@ -547,7 +554,7 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		else if (penalty.Mode == "lin")
 		{
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
-			for (int i = 0; i < constraints.total(); i++)
+			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
 					conRewards.ATD(0, i) = penalty.lin*constraints.ATD(0, i) - 100;
@@ -790,7 +797,6 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		
 		for (int g = 0; g < numGens; g++)
 		{
-			begin_generation:
 			penalty.R = penFxnA*exp(penFxnB*g);
 			
 			ccea.Mutate();

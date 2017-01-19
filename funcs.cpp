@@ -92,7 +92,7 @@ Mat find_neqz(const Mat colvector)
 bool all_leqz(const Mat src)
 {	
 	if (mfp(src))
-		for (int i = 0; i < src.total(); i++)
+		for (size_t i = 0; i < src.total(); i++)
 		{
 			if (src.at<double>(i) > 0)
 			{
@@ -101,7 +101,7 @@ bool all_leqz(const Mat src)
 			}
 		}
 	else
-		for (int i = 0; i < src.total(); i++)
+		for (size_t i = 0; i < src.total(); i++)
 		{
 			if (src.at<int>(i) > 0)
 			{
@@ -1139,7 +1139,7 @@ Mat select_cols(const Mat src, const Mat c)
 Mat vector_to_Mat_double(const std::vector<double> v)
 {
 	Mat mat = Mat::zeros(v.size(), 1, CV_64F);
-	for (int i = 0; i < v.size(); i++)
+	for (size_t i = 0; i < v.size(); i++)
 	{
 		mat.ATD(i, 0) = v[i];
 	}
@@ -1149,7 +1149,7 @@ Mat vector_to_Mat_double(const std::vector<double> v)
 std::vector<double> Mat_to_vector_double(const cv::Mat mat)
 {
 	std::vector<double> v;
-	for (int i = 0; i < mat.total(); i++)
+	for (size_t i = 0; i < mat.total(); i++)
 	{
 		v.push_back(mat.at<double>(i));
 	}
