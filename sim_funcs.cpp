@@ -15,6 +15,8 @@
 
 #define RAND_DOUBLE ((double)rand()/(double)RAND_MAX)
 
+CCEA * myccea;
+
 /* Load data from the CSVs containing data */
 sData load_data()
 {
@@ -65,8 +67,11 @@ sBattery create_battery(sCell cell, double sConfigs, double pConfigs)
 sMotor design_motor(const cv::Mat actions, const cv::Mat motorData)
 {
 	cv::Mat temp;
+	// Get row of motor agent's choice
 	int row = (int)actions.at<double>(3, 0);
+	// Capture data in temp matrix
 	assign_mat(temp, motorData, -1, -1, -1, -1, row, row, -1, -1);
+	// Calculate characteristics
 	double kv = temp.at<double>(0, 0);
 	double R0 = temp.at<double>(0, 1)/1000.0;
 	double I0 = temp.at<double>(0, 2);
@@ -85,8 +90,11 @@ sMotor design_motor(const cv::Mat actions, const cv::Mat motorData)
 sFoil design_foil(const cv::Mat actions, const cv::Mat foilData)
 {
 	cv::Mat temp;
+	// Get row of foil agent's choice
 	int row = (int)actions.at<double>(4, 0);
+	// Capture data in temp matrix
 	assign_mat(temp, foilData, -1, -1, -1, -1, row, row, -1, -1);
+	// Calculate characteristics
 	double Cl0 = temp.at<double>(0, 0);
 	double Cla = temp.at<double>(0, 1)*360/(2.0*M_PI);
 	double Clmin = temp.at<double>(0, 2);
@@ -103,6 +111,8 @@ sFoil design_foil(const cv::Mat actions, const cv::Mat foilData)
 
 sProp design_prop(const cv::Mat actions, const cv::Mat foilData)
 {
+	// Agent choices for prop are continuous (between 0 and 1)
+	// Calculate characteristics
 	double diameter = (actions.at<double>(5, 0)*22 + 2)*0.0254;
 	double angleRoot = actions.at<double>(6, 0)*45.0;
 	double angleTip = actions.at<double>(7, 0)*45.0;
@@ -133,9 +143,12 @@ sProp create_prop(const double diameter, const double angleRoot, const double an
 sRod design_rod(const cv::Mat actions, const cv::Mat matData, const sProp prop)
 {
 	cv::Mat temp;
+	// Get row of foil agent's choice
 	int row = (int)actions.at<double>(10, 0);
+	// Capture data in temp matrix
 	assign_mat(temp, matData, -1, -1, -1, -1, row, row, -1, -1);
 	int Type = row;
+	// Calculate characteristics
 	double Ymod = temp.at<double>(0, 0);
 	double Sut = temp.at<double>(0, 1);
 	double Sy = temp.at<double>(0, 2);
@@ -193,48 +206,213 @@ sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, co
 	return sys;
 }
 
-void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys)
+void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode)
 {
 	// Well, if we can prevent updating states for ALL networks, maybe the code would be a bit faster...
 	// should do that sometime
 	for (int ag = 0; ag < NUMAGENTS; ag++)
 	{
-		/*
-		statesPtrs[ag]->at(0) = RAND_DOUBLE;
-		statesPtrs[ag]->at(1) = RAND_DOUBLE;
-		statesPtrs[ag]->at(2) = RAND_DOUBLE;
-		*/
-		switch (115)
+		if (stateMode == 0) // retarded
 		{
-			case 0:
-			case 1:
-			case 2:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 2), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 3), 0.0);
-				break;
-			case 3:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 5), 0.0);
-				break;
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
-				break;
-			case 10:
-			case 11:
-			case 12:
-				statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
-				statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 6), 0.0);
-				statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
-				break;
+			for (size_t s = 0; s < statesPtrs[ag]->size(); s++)
+			{
+				statesPtrs[ag]->at(0) = RAND_DOUBLE;
+				statesPtrs[ag]->at(1) = RAND_DOUBLE;
+				statesPtrs[ag]->at(2) = RAND_DOUBLE;
+			}
+		}
+		else if (stateMode == 1) // stupid
+		{
+			switch (ag)
+			{
+				case 0:
+				case 1:
+				case 2:
+					statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+					statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 2), 0.0);
+					statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 3), 0.0);
+					break;
+				case 3:
+					statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+					statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
+					statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 5), 0.0);
+					break;
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+					statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 4), 0.0);
+					statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
+					break;
+				case 10:
+				case 11:
+				case 12:
+					statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
+					statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 6), 0.0);
+					statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
+					break;
+			}
+		}
+		else if (stateMode == 2) // new without update
+		{
+			double oneThird = 1.0/3.0;
+			if (1) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			switch (ag)
+			{
+				case 0:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// hover amps vs battery max amps
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 2), 0.0) - old[0]);
+					// Hover volts vs battery volts
+					// MAYBE WE NEED TO MOVE MAX OUTSIDE?
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 3), 0.0) - old[1]);
+					// ratio of Hover power and motor max power
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(hover.pelec/sys.motor.Pmax - old[2]);
+					break;
+				}
+				case 1:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Hover volts vs battery volts
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 3), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(hover.thrust/sys.mass - old[1]);
+					// Thrust constraint
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[2]);
+					break;
+				}
+				case 2:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Hover amps vs battery max amps
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 2), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(hover.thrust/sys.mass - old[1]);
+					// Thrust constraint
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[2]);
+					break;
+				}
+				case 3:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2), statesPtrs[ag]->at(3)};
+					// Hover amps vs motor max current
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 4), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 5), 0.0) - old[1]);
+					// hover volts / battery volts
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(hover.volts/sys.battery.Volt - old[2]);
+					// Thrust constraint
+					statesPtrs[ag]->at(3) = old[3] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[3]);
+					break;
+				}
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Thrust constraint
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 4), 0.0) - old[1]);
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
+					break;
+				}
+				case 10:
+				case 11:
+				case 12:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 6), 0.0) - old[1]);
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
+					break;
+				}
+			}
+		}
+		else if (stateMode == 3) // new with update
+		{
+			double oneThird = 1.0/3.0;
+			if (1) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			switch (ag)
+			{
+				case 0:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// hover amps vs battery max amps
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 2), 0.0) - old[0]);
+					// Hover volts vs battery volts
+					// MAYBE WE NEED TO MOVE MAX OUTSIDE?
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 3), 0.0) - old[1]);
+					// ratio of Hover power and motor max power
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(hover.pelec/sys.motor.Pmax - old[2]);
+					break;
+				}
+				case 1:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Hover volts vs battery volts
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 3), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(hover.thrust/sys.mass - old[1]);
+					// Thrust constraint
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[2]);
+					break;
+				}
+				case 2:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Hover amps vs battery max amps
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 2), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(hover.thrust/sys.mass - old[1]);
+					// Thrust constraint
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[2]);
+					break;
+				}
+				case 3:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2), statesPtrs[ag]->at(3)};
+					// Hover amps vs motor max current
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 4), 0.0) - old[0]);
+					// Thrust to weight ratio
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 5), 0.0) - old[1]);
+					// hover volts / battery volts
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(hover.volts/sys.battery.Volt - old[2]);
+					// Thrust constraint
+					statesPtrs[ag]->at(3) = old[3] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[3]);
+					break;
+				}
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					// Thrust constraint
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 4), 0.0) - old[1]);
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
+					break;
+				}
+				case 10:
+				case 11:
+				case 12:
+				{
+					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
+					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
+					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 6), 0.0) - old[1]);
+					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
+					break;
+				}
+			}
 		}
 	}
 }
@@ -266,6 +444,7 @@ cv::Mat get_actions(const int t, CCEA* ccea)
 			case 11:
 			case 12:
 				actions.ATD(ag, 0) = outputs[ag][0]; // single output for these agents
+				break;
 		}
 	}
 	return actions;
@@ -741,7 +920,7 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 	return perf;
 }
 
-void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int D)
+void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int D, int stateMode)
 {
 	sData data = load_data();
 
@@ -776,23 +955,37 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 	sProp prop;
 	sRod rod;
 	sSys sys;
+
+	std::vector<double> numFeasibleAvg(numGens, 0);
 	
 	for (int r = 0; r < numRuns; r++)
 	{
 		maxG.ATD(r, 0) = 0;
 		int numHidden = 10;
 
-		/* Number of (inputs, hidden, outputs) for agents */
-		int arrNumInputs[] = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
-		int arrNumHidden[] = {numHidden, numHidden, numHidden, numHidden, numHidden, numHidden, 
+		std::vector<int> vecNumInputs;
+		std::vector<int> vecNumHidden;
+		std::vector<int> vecNumOutputs;
+	
+		if (stateMode == 2 || stateMode == 3)
+		{
+			/* Number of (inputs, hidden, outputs) for agents */
+			int arrNumInputs[] = {3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3}; // !@!@!@!@!@!@!@!@!@!@!
+			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
+		}
+		else
+		{
+			/* Number of (inputs, hidden, outputs) for agents */
+			int arrNumInputs[] = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}; // !@!@!@!@!@!@!@!@!@!@!
+			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
+		}
+		int arrNumHidden[] = {numHidden, numHidden, numHidden, numHidden*2/*####!####*/, numHidden, numHidden, 
 				numHidden, numHidden, numHidden, numHidden, numHidden, numHidden, numHidden};
 		int arrNumOutputs[] = {6, 10, 6, 24, 8, 1, 1, 1, 1, 1, 4, 1, 1};
-
-		std::vector<int> vecNumInputs(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
-		std::vector<int> vecNumHidden(arrNumHidden, arrNumHidden + sizeof(arrNumHidden)/sizeof(int));
-		std::vector<int> vecNumOutputs(arrNumOutputs, arrNumOutputs + sizeof(arrNumOutputs)/sizeof(int));
-	
+		vecNumHidden = std::vector<int>(arrNumHidden, arrNumHidden + sizeof(arrNumHidden)/sizeof(int));
+		vecNumOutputs = std::vector<int>(arrNumOutputs, arrNumOutputs + sizeof(arrNumOutputs)/sizeof(int));
 		CCEA ccea(NUMAGENTS, popSize, 1.0, 0.5);
+		myccea = &ccea;
 		ccea.Init(vecNumInputs, vecNumHidden, vecNumOutputs);
 		
 		for (int g = 0; g < numGens; g++)
@@ -804,6 +997,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 
 			double G;
 			
+			int numFeasible = 0;
 			cv::Mat team_G = cv::Mat::zeros(popSize*2, 1, CV_64F);
 			cv::Mat team_flightTime = cv::Mat::zeros(popSize*2, 1, CV_64F);
 			// team_perf
@@ -835,6 +1029,8 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				sHover hover;
 				cv::Mat rewards = compute_rewards(D, penalty, sys, data, /* <-- inputs */
 								G, flightTime, constraints, hover); /* <-- outputs */
+				if (all_leqz(constraints))
+					numFeasible++;
 				//COUT << rewards.t() << ENDL;
 				team_G.ATD(t, 0) = G;
 				team_flightTime.ATD(t, 0) = flightTime;
@@ -842,10 +1038,13 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				assign_mat(team_constraints, constraints, t, t, -1, -1, -1, -1, -1, -1);
 				assign_mat(team_rewards, rewards, -1, -1, t, t, -1, -1, -1, -1);
 				
+
 				ccea.AssignFitness(t, Mat_to_vector_double(rewards));
 				
-				update_states(ccea.statesPtrs[t], hover, constraints, sys);
+				update_states(ccea.statesPtrs[t], hover, constraints, sys, stateMode);
 			}
+
+			numFeasibleAvg[g] += numFeasible;
 
 			int bestTeam;
 			G = max_double(team_G, bestTeam);
@@ -873,26 +1072,40 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 			std::cout << r << ", " << g << ": " << G << std::endl;
 		}
 	}
-	//COUT << G_hist << ENDL;
+
+	for (int g = 0; g < numGens; g++)
+		numFeasibleAvg[g] /= numRuns;
+
 	cv::Mat avgG = mean_double(G_hist, 0);
-	//COUT << avgG << ENDL;
-
-	cv::Mat range = range_double(1, numGens).t();
-	cv::Mat outputAvgG = range.clone(), outputAvgFlight = range.clone();
-	//COUT << output << ENDL;
-	//COUT << output.cols << " " << avgG.cols << ENDL;
-	assign_col(outputAvgG, avgG.t()/60.0, 1, 1, 0, 0); // second column is avgG
-
-	std::ofstream outputFile("avgG.csv");
-	write_mat_to_csv(outputFile, outputAvgG);
-	outputFile.close();
-
 	cv::Mat avgFlight = mean_double(flightTime_hist, 0);
-	assign_col(outputAvgFlight, avgFlight.t()/60.0, 1, 1, 0, 0); // second column is avgG
+	cv::Mat avgNumFeas = vector_to_Mat_double(numFeasibleAvg);
+
+	std::string strAvgGFile = "avgG" + to_str<int>(stateMode) + ".csv";
+	std::string strAvgFlightFile = "avgFlight" + to_str<int>(stateMode) + ".csv";
+	std::string strAvgNumFeasFile = "avgNumFeas" + to_str<int>(stateMode) + ".csv";
 	
-	outputFile.open("avgFlight.csv");
-	write_mat_to_csv(outputFile, outputAvgFlight);
-	outputFile.close();
+	write_mjo(strAvgGFile, avgG/60.0);
+	write_mjo(strAvgFlightFile, avgFlight/60.0);
+	write_mjo(strAvgNumFeasFile, avgNumFeas);
+}
+
+void write_mjo(std::string filename, cv::Mat dataVector)
+{
+	if (dataVector.total() != dataVector.rows && dataVector.total() != dataVector.cols)
+	{
+		std::cout << "ERROR: write_mjo: dataVector not a vector!" << std::endl;
+		std::cout << filename << " not written!" << std::endl;
+		return;
+	}
+	cv::Mat range = range_double(1, dataVector.total());
+	cv::Mat outputMat = range.clone().t();
+	if (dataVector.cols > 1) // row vector
+		assign_col(outputMat, dataVector.t(), 1, 1, 0, 0); // append to output matrix
+	else // col vector
+		assign_col(outputMat, dataVector, 1, 1, 0, 0); // append to output matrix
+	std::ofstream fileOutput(filename.c_str());
+	write_mat_to_csv(fileOutput, outputMat);
+	fileOutput.close();
 }
 
 // COUNTER CALC STUFF

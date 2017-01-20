@@ -6,14 +6,27 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
 	tic();
 	srand(time(NULL));
 
-	int numGens = 250;
-	int numRuns = 10;
-	int popSize = 10;
+	if (argc != 6)
+	{
+		cout << "Wrong number of inputs. Usage:" << endl;
+		cout << argv[0] << " ";
+		cout << "GENERATIONS RUNS POPSIZE USE_D STATEMODE" << endl;
+		cout << "STATEMODE: 0 - random, 1 - simple constraint, 2 - experimental, 3 - 2, but with ""upate""" << endl;
+	}
+
+	int numGens = 	atoi(argv[1]);
+	int numRuns = 	atoi(argv[2]);
+	int popSize = 	atoi(argv[3]);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	int D = 		atoi(argv[4]);
+	int stateMode = atoi(argv[5]);
+	
+	if (stateMode > 3)
+		cout << "StateMode " << stateMode << " probably doesn't exist yet... BEWARE!" << endl;
 	
 	// const quad death deathplus lin none
 	sPenalty penalty;
@@ -26,9 +39,7 @@ int main()
 	penalty.lin = -1000;
 	penalty.failure = -100;
 
-	int D = 0;
-
-	run_experiment(penalty, numGens, numRuns, popSize, D);
+	run_experiment(penalty, numGens, numRuns, popSize, D, stateMode);
 
 	/*
 	sData data = load_data();

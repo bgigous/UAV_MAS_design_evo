@@ -24,7 +24,7 @@ NN::NN(int inputs, int hidden, int outputs)
 	// Create the weights
 	for (int w = 0; w < numInnerWeights + numOuterWeights; w++)
 	{
-		weights.push_back((double)rand()/(double)RAND_MAX);
+		weights.push_back((double)rand()/(double)RAND_MAX * 2 - 1);
 	}
 
 	// Create the nodes
@@ -102,7 +102,7 @@ void NN::setOuterWeight(int hiddenNode, int outputNode, double newWeight)
 // will be a problem later...)
 void NN::RandomizeWeight(int weight)
 {
-	double randWeight = (double)rand()/(double)RAND_MAX;
+	double randWeight = (double)rand()/(double)RAND_MAX * 2 - 1;
 	weights[weight] = randWeight;
 }
 

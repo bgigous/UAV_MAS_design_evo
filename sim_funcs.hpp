@@ -26,7 +26,7 @@ sRod create_rod(const sMaterial material, const double length, const double diam
 
 sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, const sProp prop, const sRod rod);
 
-void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys);
+void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode);
 
 cv::Mat get_actions(const int t, CCEA* ccea);
 
@@ -47,6 +47,7 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 
 sHover calc_hover(const sSys sys);
 
-void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int D);
+void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int D, int stateMode);
 
+void write_mjo(std::string filename, cv::Mat dataVector);
 #endif

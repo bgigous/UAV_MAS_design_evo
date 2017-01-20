@@ -119,7 +119,7 @@ void CCEA::Init(const vector<int> vecNumInputs, const vector<int> vecNumHidden, 
 		{
 			vector<double> stateVector;
 			for (int s = 0; s < vecNumInputs[n]; s++)
-				stateVector.push_back(0);
+				stateVector.push_back((double)rand()/(double)RAND_MAX * 2 - 1);
 			indivStates.push_back(stateVector);
 		}
 		states.push_back(indivStates);
