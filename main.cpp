@@ -17,7 +17,9 @@ int main(int argc, char* argv[])
 		cout << argv[0] << " ";
 		cout << "GENERATIONS RUNS POPSIZE USE_D STATEMODE" << endl;
 		cout << "STATEMODE: 0 - random, 1 - simple constraint, 2 - experimental, 3 - 2, but with ""upate""" << endl;
+		return -1;
 	}
+	
 
 	int numGens = 	atoi(argv[1]);
 	int numRuns = 	atoi(argv[2]);

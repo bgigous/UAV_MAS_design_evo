@@ -8,6 +8,8 @@ using namespace std;
 class NN
 {
 	protected:
+		// ID of *this* neural network
+		long double ID;
 		// The number of input nodes for the neural network
 		int numInputs;
 		// The number of hidden layer nodes for the neural network
@@ -41,6 +43,9 @@ class NN
 	public:
 		// The NN's fitness (Objective function not included. Adult supervision required)
 		double fitness;
+
+		// ID of next neural network
+		static long double nextID;
 
 		NN();
 		NN(int inputs, int hidden, int outputs);

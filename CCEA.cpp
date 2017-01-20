@@ -89,6 +89,7 @@ void CCEA::Init(const vector<int> vecNumInputs, const vector<int> vecNumHidden, 
 		cout << "ERROR CCEA Init(): Vectors must be of size equal to the number of populations!" << endl;
 		return;
 	}
+
 	// Check for positive integers only?
 
 	// Iterate through populations

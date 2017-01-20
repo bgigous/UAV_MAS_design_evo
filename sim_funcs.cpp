@@ -212,6 +212,15 @@ void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover
 	// should do that sometime
 	for (int ag = 0; ag < NUMAGENTS; ag++)
 	{
+		if (stateMode == -1)
+		{
+			for (size_t s = 0; s < statesPtrs[ag]->size(); s++)
+			{
+				statesPtrs[ag]->at(0) = 0;
+				statesPtrs[ag]->at(1) = 0;
+				statesPtrs[ag]->at(2) = 0;
+			}
+		}
 		if (stateMode == 0) // retarded
 		{
 			for (size_t s = 0; s < statesPtrs[ag]->size(); s++)

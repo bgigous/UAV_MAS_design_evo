@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <math.h>
 
+// Initialize NN ID thing
+long double NN::nextID = 0;
+
 NN::NN()
 {
 	NN(0, 0, 0);
@@ -11,6 +14,9 @@ NN::NN()
 // Constructor
 NN::NN(int inputs, int hidden, int outputs)
 {
+	ID = nextID;
+	nextID++;
+
 	// initialize random seed
 //	srand(time(NULL));
 
