@@ -254,12 +254,13 @@ void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover
 				case 10:
 				case 11:
 				case 12:
+				case 13:
 					statesPtrs[ag]->at(0) = std::max(constraints.ATD(0, 1), 0.0);
 					statesPtrs[ag]->at(1) = std::max(constraints.ATD(0, 6), 0.0);
 					statesPtrs[ag]->at(2) = std::max(constraints.ATD(0, 7), 0.0);
-				case 13:
-					// add length constraint
-					statesPtrs[ag]->at(3) = std::max(constraints.ATD(0, 8), 0.0);
+					if (ag == 13)
+						// add length constraint
+						statesPtrs[ag]->at(3) = std::max(constraints.ATD(0, 8), 0.0);
 					break;
 			}
 		}
@@ -333,16 +334,18 @@ void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover
 				case 10:
 				case 11:
 				case 12:
+				case 13:
 				{
 					double old[] = {statesPtrs[ag]->at(0), statesPtrs[ag]->at(1), statesPtrs[ag]->at(2)};
 					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
 					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 6), 0.0) - old[1]);
 					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
-				}
-				case 13:
-				{
-					double old3 = statesPtrs[ag]->at(3);
-					statesPtrs[ag]->at(2) = old3 + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old3);
+					if (ag == 13)
+					{
+						double old3;
+						old3 = statesPtrs[ag]->at(3);
+						statesPtrs[ag]->at(3) = old3 + oneThird*(std::max(constraints.ATD(0, 8), 0.0) - old3);
+					}
 				}
 			}
 		}
@@ -421,11 +424,12 @@ void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover
 					statesPtrs[ag]->at(0) = old[0] + oneThird*(std::max(constraints.ATD(0, 1), 0.0) - old[0]);
 					statesPtrs[ag]->at(1) = old[1] + oneThird*(std::max(constraints.ATD(0, 6), 0.0) - old[1]);
 					statesPtrs[ag]->at(2) = old[2] + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old[2]);
-				}
-				case 13:
-				{
-					double old3 = statesPtrs[ag]->at(3);
-					statesPtrs[ag]->at(2) = old3 + oneThird*(std::max(constraints.ATD(0, 7), 0.0) - old3);
+					if (ag == 13)
+					{
+						double old3;
+						old3 = statesPtrs[ag]->at(3);
+						statesPtrs[ag]->at(3) = old3 + oneThird*(std::max(constraints.ATD(0, 8), 0.0) - old3);
+					}
 				}
 			}
 		}
@@ -1001,21 +1005,19 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		std::vector<int> vecNumHidden;
 		std::vector<int> vecNumOutputs;
 	
-		if (stateMode == 2 || stateMode == 3)
+		int rodLengthInputs = 3, motorInputs = 3;
+		if (stateMode == 1 || stateMode == 2 || stateMode == 3)
 		{
-			/* Number of (inputs, hidden, outputs) for agents */
-			int arrNumInputs[] = {3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4}; // !@!@!@!@!@!@!@!@!@!@!
-			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
+			rodLengthInputs = 4;
+			if (stateMode != 1)
+				motorInputs = 4;
 		}
-		else
-		{
-			/* Number of (inputs, hidden, outputs) for agents */
-			int arrNumInputs[] = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4}; // !@!@!@!@!@!@!@!@!@!@!
-			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
-		}
+		/* Number of (inputs, hidden, outputs) for agents */
+		int arrNumInputs[] = {3, 3, 3, motorInputs, 3, 3, 3, 3, 3, 3, 3, 3, 3, rodLengthInputs}; // !@!@!@!@!@!@!@!@!@!@!
 		int arrNumHidden[] = {numHidden, numHidden, numHidden, numHidden*2/*####!####*/, numHidden, numHidden, 
 				numHidden, numHidden, numHidden, numHidden, numHidden, numHidden, numHidden, numHidden};
 		int arrNumOutputs[] = {6, 10, 6, 24, 8, 1, 1, 1, 1, 1, 4, 1, 1, 1};
+		vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
 		vecNumHidden = std::vector<int>(arrNumHidden, arrNumHidden + sizeof(arrNumHidden)/sizeof(int));
 		vecNumOutputs = std::vector<int>(arrNumOutputs, arrNumOutputs + sizeof(arrNumOutputs)/sizeof(int));
 		CCEA ccea(NUMAGENTS, popSize, 1.0, 0.5);
