@@ -1038,7 +1038,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				sHover hover;
 				cv::Mat rewards = compute_rewards(D, penalty, sys, data, /* <-- inputs */
 								G, flightTime, constraints, hover); /* <-- outputs */
-				if (all_leqz(constraints))
+				if (all_leqz(constraints - 0.05))
 					numFeasible++;
 				//COUT << rewards.t() << ENDL;
 				team_G.ATD(t, 0) = G;
@@ -1071,14 +1071,14 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 			flightTime_hist.ATD(r, g) = team_flightTime.ATD(bestTeam, 0);
 			
 			cv::Mat temp = cv::Mat::ones(1, 1, CV_32S)*bestTeam;
-			if (G > maxG.ATD(r, 0) && all_leqz(mat_from_indices(team_constraints, temp, cv::Mat())));
+			if (G > maxG.ATD(r, 0) && all_leqz(mat_from_indices(team_constraints, temp, cv::Mat()) - 0.05));
 			{
 				maxG.ATD(r, 0) = G;
 				genOfMax.at<int>(r, 0) = g;
 				//maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
 			}
 			
-			std::cout << r << ", " << g << ": " << G << std::endl;
+			std::cout << r << ", " << g << ": " << G << "; " << numFeasible << std::endl;
 		}
 	}
 
