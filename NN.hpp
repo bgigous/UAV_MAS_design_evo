@@ -43,6 +43,7 @@ class NN
 	public:
 		// The NN's fitness (Objective function not included. Adult supervision required)
 		double fitness;
+		int timesSurvived;
 
 		// ID of next neural network
 		static long double nextID;

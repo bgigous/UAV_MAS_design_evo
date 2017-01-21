@@ -55,7 +55,8 @@ NN::NN(int inputs, int hidden, int outputs)
 		outputNodes.push_back(0);
 	}
 
-//	fitness = 0;
+	fitness = 0;
+	timesSurvived = 0;
 }
 
 // Returns the weight specified by an index

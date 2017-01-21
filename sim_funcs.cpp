@@ -14,6 +14,7 @@
 #include <algorithm>
 
 #define RAND_DOUBLE ((double)rand()/(double)RAND_MAX)
+#define VIOLATION_PENALTY 150
 
 CCEA * myccea;
 
@@ -707,6 +708,8 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 	if (hover.failure == 1)
 		fail = 1;
 
+	int violationCount = 0;
+
 	G = flightTime; // default
 	if (fail)
 		G = penalty.failure;
@@ -744,15 +747,21 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
+				{
+					violationCount++;
 					conRewards.ATD(0, i) = -penalty.R*pow(1 + constraints.ATD(0, i), 2.0);
 					//conRewards.ATD(0, i) = -penalty.R*pow(std::max(1 + constraints.ATD(0, i), 2.0), 2.0); // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 1111111111111111111111!
+				}
 			}
-			double temp = flightTime + cv::sum(conRewards)[0];
+			double temp = flightTime + cv::sum(conRewards)[0] - VIOLATION_PENALTY*violationCount;
+			G = temp;
+			/*
 			if (penalty.quadtrunc >= temp)
 				G = penalty.quadtrunc;
 				//G = penalty.quadtrunc + 0.1*temp; // %%%%%%%%%%%%%%%%%%%%%%%%%%%              2222222222 !!!!!!!!!!!!!!!!!!!!!!!!
 			else
 				G = temp;
+			*/
 		}
 		else if (penalty.Mode == "const")
 		{
@@ -1020,7 +1029,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
 		vecNumHidden = std::vector<int>(arrNumHidden, arrNumHidden + sizeof(arrNumHidden)/sizeof(int));
 		vecNumOutputs = std::vector<int>(arrNumOutputs, arrNumOutputs + sizeof(arrNumOutputs)/sizeof(int));
-		CCEA ccea(NUMAGENTS, popSize, 1.0, 0.5);
+		CCEA ccea(NUMAGENTS, popSize, 1.0, 0.5, false);
 		myccea = &ccea;
 		ccea.Init(vecNumInputs, vecNumHidden, vecNumOutputs);
 		
@@ -1074,7 +1083,6 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				assign_mat(team_constraints, constraints, t, t, -1, -1, -1, -1, -1, -1);
 				assign_mat(team_rewards, rewards, -1, -1, t, t, -1, -1, -1, -1);
 				
-
 				ccea.AssignFitness(t, Mat_to_vector_double(rewards));
 				
 				update_states(ccea.statesPtrs[t], hover, constraints, sys, stateMode);
@@ -1104,7 +1112,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				//maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
 			}
 			
-			std::cout << r << ", " << g << ": " << G << std::endl;
+			std::cout << r << ", " << g << ": " << G << "; " << numFeasible << std::endl;
 		}
 	}
 

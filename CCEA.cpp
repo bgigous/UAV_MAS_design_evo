@@ -62,9 +62,10 @@ double GenerateRandFloat(double mean, double sd)
 			popSize - Number of individual NNs per population
 			sd - Standard deviation used when mutating NNs
 			percRad - the percentage of weights to alter
+			historical - whether or not to use historical fitness for pop members
 */
-CCEA::CCEA(int numPops, int popSize, double sd, double percRad) :
-	numPops(numPops), popSize(popSize), stdDev(sd), percRad(percRad)
+CCEA::CCEA(int numPops, int popSize, double sd, double percRad, bool historical) :
+	numPops(numPops), popSize(popSize), stdDev(sd), percRad(percRad), historicalAverage(historical)
 {
 	// Initialize member variables (above)
 	// We'll create the populations in the Init() function
@@ -229,13 +230,29 @@ void CCEA::SelectFittest()
 				NN nnB = popIt->at(b);
 
 				// Compare fitnesses and eliminate weaker of the two.
-				if 		(nnA.fitness > nnB.fitness) losers.push_back(b);
-				else if (nnA.fitness < nnB.fitness) losers.push_back(a);
+				if (nnA.fitness > nnB.fitness) 
+				{
+					losers.push_back(b);
+					popIt->at(a).timesSurvived++; // DELETE if needed
+				}
+				else if (nnA.fitness < nnB.fitness)
+				{
+					losers.push_back(a);
+					popIt->at(b).timesSurvived++; // DELETE if needed
+				}
 				else
 				{
 					// Or if they are equally fit, eliminate one randomly
-					if (RAND_DOUBLE >= 0.5)	losers.push_back(b);
-					else					losers.push_back(a);
+					if (RAND_DOUBLE >= 0.5)	
+					{
+						losers.push_back(b);
+						popIt->at(a).timesSurvived++; // DELETE if needed
+					}
+					else
+					{
+						losers.push_back(a);
+						popIt->at(b).timesSurvived++; // DELETE if needed
+					}
 				}
 			}
 
@@ -335,6 +352,11 @@ void CCEA::AssignFitness(const int t, const vector<double> fitnesses)
 	
 	for (int n = 0; n < numPops; n++)
 	{
-		teams[t][n].fitness = fitnesses[n];
+		NN tm = teams[t][n]; // Team member!
+		if (historicalAverage)
+			tm.fitness = (fitnesses[n] + tm.timesSurvived*tm.fitness)/(tm.timesSurvived + 1);
+		else
+			tm.fitness = fitnesses[n];
+		teams[t][n] = tm;
 	}
 }

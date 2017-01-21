@@ -19,6 +19,8 @@ class CCEA
 		// The percentage of "radiation" to give each NN during mutation
 		// At 0%, no weights are changed. At 100%, all weights are modified
 		double percRad;
+		// Are surviving members given an average of their fitness?
+		bool historicalAverage;
 		// The current population of nerual networks
 		vector< vector<NN> > populations;
 		// The teams formed from the populations
@@ -28,7 +30,7 @@ class CCEA
 	public:
 		// Constructor specifies the number of populations, population size of each pop, 
 		// and the standard deviation used for modifying the weights
-		CCEA(int numPops, int popSize, double sd, double percRad);
+		CCEA(int numPops, int popSize, double sd, double percRad, bool historical);
 
 		void Init(const vector<int>, const vector<int>, const vector<int>);
 		void Mutate();
