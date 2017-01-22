@@ -26,7 +26,7 @@ sRod create_rod(const sMaterial material, const double length, const double diam
 
 sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, const sProp prop, const sRod rod);
 
-void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode);
+void update_states(std::vector< std::vector< std::vector<double> * > > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode);
 
 cv::Mat get_actions(const int t, CCEA* ccea);
 

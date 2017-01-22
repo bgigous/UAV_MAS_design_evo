@@ -14,6 +14,7 @@
 #include <algorithm>
 
 #define RAND_DOUBLE ((double)rand()/(double)RAND_MAX)
+#define VIOLATION_PENALTY 50
 
 CCEA * myccea;
 
@@ -206,8 +207,126 @@ sSys design_sys(const sBattery battery, const sMotor motor, const sFoil foil, co
 	return sys;
 }
 
-void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode)
+void update_states(std::vector< std::vector< std::vector<double> * > > statesPtrs, const sHover hover, const cv::Mat constraints, const sSys sys, const int stateMode)
 {
+	double motorPmax = sys.motor.Pmax / 100.0;
+	double hoverAmps = hover.amps / 10.0;
+	double hoverPelec = hover.pelec / 100.0;
+	double motorImax = sys.motor.Pmax / 10.0;
+	double motorKv = sys.motor.kv / 100.0;
+	double hoverVolts = hover.volts / 10.0;
+	double hoverThrust = hover.thrust / 10.0;
+	double batteryVolt = sys.battery.Volt / 10.0;
+	double batteryImax = sys.battery.Imax / 100.0;
+	double propDiameter = sys.prop.diameter / 10.0;
+	double hoverRpm = hover.rpm / 1000.0;
+	double hoverPprop = hover.pprop / 10.0;
+	double sysNatFreq = sys.natFreq / 100.0;
+	for (size_t t = 0; t < statesPtrs.size(); t++)
+	{
+		for (size_t ag = 0; ag < NUMAGENTS; ag++)
+		{
+			switch (ag)
+			{
+				case 0:
+				{
+					std::vector<double> * sp = statesPtrs[t][ag];
+					sp->at(0) = motorPmax;
+					sp->at(1) = hoverAmps;
+					sp->at(2) = hoverPelec;
+					sp->at(3) = motorImax;
+					sp->at(4) = motorKv;
+					break;
+				}
+				case 1:
+				{
+					statesPtrs[t][ag]->at(0) = motorKv;
+					statesPtrs[t][ag]->at(1) = hoverPelec;
+					statesPtrs[t][ag]->at(2) = hoverVolts;
+					statesPtrs[t][ag]->at(3) = sys.mass;
+					statesPtrs[t][ag]->at(4) = hoverThrust;
+					break;
+				}
+				case 2:
+				{
+					statesPtrs[t][ag]->at(0) = motorImax;
+					statesPtrs[t][ag]->at(1) = hoverPelec;
+					statesPtrs[t][ag]->at(2) = hoverAmps;
+					statesPtrs[t][ag]->at(3) = sys.mass;
+					break;
+				}
+				case 3:
+				{
+					statesPtrs[t][ag]->at(0) = batteryVolt;
+					statesPtrs[t][ag]->at(1) = batteryImax;
+					statesPtrs[t][ag]->at(2) = propDiameter;
+					statesPtrs[t][ag]->at(3) = hoverRpm;
+					statesPtrs[t][ag]->at(4) = hoverThrust;
+					break;
+				}
+				case 4: //foil
+				{
+					statesPtrs[t][ag]->at(0) = hover.clavg;
+					statesPtrs[t][ag]->at(1) = hover.cdavg;
+					break;
+				}
+				case 5: // diameter
+				{
+					statesPtrs[t][ag]->at(0) = hoverRpm;
+					statesPtrs[t][ag]->at(1) = hoverPprop;
+					break;
+				}
+				case 6: //angleRoot
+				{
+					statesPtrs[t][ag]->at(0) = propDiameter;
+					statesPtrs[t][ag]->at(1) = hover.clavg;
+					statesPtrs[t][ag]->at(2) = hover.cdavg;
+					break;
+				}
+				case 7: // angleTip
+				{
+					statesPtrs[t][ag]->at(0) = propDiameter;
+					statesPtrs[t][ag]->at(1) = hover.clavg;
+					statesPtrs[t][ag]->at(2) = hover.cdavg;
+					break;
+				}
+				case 8: // chordRoot
+				{
+					statesPtrs[t][ag]->at(0) = hoverRpm;
+					statesPtrs[t][ag]->at(1) = propDiameter;
+					break;
+				}
+				case 9: // chordTip
+				{
+					statesPtrs[t][ag]->at(0) = hoverRpm;
+					statesPtrs[t][ag]->at(1) = propDiameter;
+					break;
+				}
+				case 10: // mat
+				{
+					statesPtrs[t][ag]->at(0) = sysNatFreq;
+					statesPtrs[t][ag]->at(1) = sys.motor.Mass*4 + sys.prop.mass*4;
+					statesPtrs[t][ag]->at(2) = hoverThrust;
+					break;
+				}
+				case 11: // diam
+				{
+					statesPtrs[t][ag]->at(0) = sysNatFreq;
+					statesPtrs[t][ag]->at(1) = sys.motor.Mass*4 + sys.prop.mass*4;
+					statesPtrs[t][ag]->at(2) = hoverThrust;
+					break;
+				}
+				case 12: // thick
+				{
+					statesPtrs[t][ag]->at(0) = sysNatFreq;
+					statesPtrs[t][ag]->at(1) = sys.motor.Mass*4 + sys.prop.mass*4;
+					statesPtrs[t][ag]->at(2) = hoverThrust;
+					break;
+				}
+			}
+		}
+	}
+	/*
 	// Well, if we can prevent updating states for ALL networks, maybe the code would be a bit faster...
 	// should do that sometime
 	for (int ag = 0; ag < NUMAGENTS; ag++)
@@ -424,6 +543,7 @@ void update_states(std::vector< std::vector<double> * > statesPtrs, const sHover
 			}
 		}
 	}
+	*/
 }
 
 cv::Mat get_actions(const int t, CCEA* ccea)
@@ -713,13 +833,17 @@ double calc_G(const sPenalty penalty, const sSys sys, double & flightTime, cv::M
 		}
 		else if (penalty.Mode == "quad")
 		{
+			int violationCount = 0;
 			cv::Mat conRewards = cv::Mat::zeros(constraints.size(), CV_64F);
 			for (size_t i = 0; i < constraints.total(); i++)
 			{
 				if (constraints.ATD(0, i) > 0)
+				{
+					violationCount++;
 					conRewards.ATD(0, i) = -penalty.R*pow(1 + constraints.ATD(0, i), 2.0);
+				}
 			}
-			double temp = flightTime + cv::sum(conRewards)[0];
+			double temp = flightTime + cv::sum(conRewards)[0] - VIOLATION_PENALTY*violationCount;
 			if (penalty.quadtrunc >= temp)
 				G = penalty.quadtrunc;
 			else
@@ -925,6 +1049,7 @@ sPerf call_qprop(std::string velStr, std::string rpmStr, std::string voltStr, st
 
 	if (starFlag)
 		perf.failure = 1;
+	else perf.failure = 0;
 
 	return perf;
 }
@@ -938,6 +1063,7 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 
 	cv::Mat G_hist = cv::Mat::zeros(numRuns, numGens, CV_64F);
 	cv::Mat flightTime_hist = cv::Mat::zeros(numRuns, numGens, CV_64F);
+	cv::Mat currBestFeas_hist = cv::Mat::zeros(numRuns, numGens, CV_64F);
 	
 	// having trouble making 3d matrices...
 	/*
@@ -969,6 +1095,8 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 	
 	for (int r = 0; r < numRuns; r++)
 	{
+		sSys sysBest;
+		sHover hoverBest;
 		maxG.ATD(r, 0) = 0;
 		int numHidden = 10;
 
@@ -976,18 +1104,9 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		std::vector<int> vecNumHidden;
 		std::vector<int> vecNumOutputs;
 	
-		if (stateMode == 2 || stateMode == 3)
-		{
-			/* Number of (inputs, hidden, outputs) for agents */
-			int arrNumInputs[] = {3, 3, 3, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3}; // !@!@!@!@!@!@!@!@!@!@!
-			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
-		}
-		else
-		{
-			/* Number of (inputs, hidden, outputs) for agents */
-			int arrNumInputs[] = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}; // !@!@!@!@!@!@!@!@!@!@!
-			vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
-		}
+		/* Number of (inputs, hidden, outputs) for agents */
+		int arrNumInputs[] = {5, 5, 4, 5, 2, 2, 3, 3, 2, 2, 3, 3, 3};
+		vecNumInputs = std::vector<int>(arrNumInputs, arrNumInputs + sizeof(arrNumInputs)/sizeof(int));
 		int arrNumHidden[] = {numHidden, numHidden, numHidden, numHidden*2/*####!####*/, numHidden, numHidden, 
 				numHidden, numHidden, numHidden, numHidden, numHidden, numHidden, numHidden};
 		int arrNumOutputs[] = {6, 10, 6, 24, 8, 1, 1, 1, 1, 1, 4, 1, 1};
@@ -996,7 +1115,8 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 		CCEA ccea(NUMAGENTS, popSize, 1.0, 0.5);
 		myccea = &ccea;
 		ccea.Init(vecNumInputs, vecNumHidden, vecNumOutputs);
-		
+	
+		double currBestFeas = 0;
 		for (int g = 0; g < numGens; g++)
 		{
 			penalty.R = penFxnA*exp(penFxnB*g);
@@ -1010,9 +1130,11 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 			cv::Mat team_G = cv::Mat::zeros(popSize*2, 1, CV_64F);
 			cv::Mat team_flightTime = cv::Mat::zeros(popSize*2, 1, CV_64F);
 			// team_perf
-			// team_hover
 			cv::Mat team_constraints = cv::Mat::zeros(popSize*2, 8, CV_64F);
 			cv::Mat team_rewards = cv::Mat::zeros(NUMAGENTS, popSize*2, CV_64F);
+			cv::Mat team_actions = cv::Mat::zeros(NUMAGENTS, popSize*2, CV_64F);
+			std::vector<int> vecFeasibleTeams;
+			std::vector<sHover> team_hover;
 			for (int t = 0; t < popSize*2; t++)
 			{
 				//std::cout << "TEAM " << t << endl;
@@ -1038,27 +1160,28 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 				sHover hover;
 				cv::Mat rewards = compute_rewards(D, penalty, sys, data, /* <-- inputs */
 								G, flightTime, constraints, hover); /* <-- outputs */
-				if (all_leqz(constraints - 0.05))
-					numFeasible++;
 				//COUT << rewards.t() << ENDL;
 				team_G.ATD(t, 0) = G;
+				if (all_leqz(constraints - 0.05) && currBestFeas < G)
+				{
+					vecFeasibleTeams.push_back(t);
+					numFeasible++;
+					currBestFeas = G;
+				}
 				team_flightTime.ATD(t, 0) = flightTime;
 				//cout << constraints << endl;
 				assign_mat(team_constraints, constraints, t, t, -1, -1, -1, -1, -1, -1);
 				assign_mat(team_rewards, rewards, -1, -1, t, t, -1, -1, -1, -1);
-				
+				assign_mat(team_actions, actions, -1, -1, t, t, -1, -1, -1, -1);
+				team_hover.push_back(hover);
 
 				ccea.AssignFitness(t, Mat_to_vector_double(rewards));
-				
-				update_states(ccea.statesPtrs[t], hover, constraints, sys, stateMode);
 			}
 
 			numFeasibleAvg[g] += numFeasible;
 
 			int bestTeam;
 			G = max_double(team_G, bestTeam);
-			ccea.ReformPopulations();
-			ccea.SelectFittest();
 			/*
 			for (int c = 0; c < 8; c++)
 			{
@@ -1069,16 +1192,41 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 
 			G_hist.ATD(r, g) = G;
 			flightTime_hist.ATD(r, g) = team_flightTime.ATD(bestTeam, 0);
+			currBestFeas_hist.ATD(r, g) = currBestFeas;
 			
-			cv::Mat temp = cv::Mat::ones(1, 1, CV_32S)*bestTeam;
-			if (G > maxG.ATD(r, 0) && all_leqz(mat_from_indices(team_constraints, temp, cv::Mat()) - 0.05));
+			double maxFeasG = 0;
+			int bestFeasTeam = -1;
+			for (size_t i = 0; i < vecFeasibleTeams.size(); i++)
 			{
-				maxG.ATD(r, 0) = G;
-				genOfMax.at<int>(r, 0) = g;
+				int t = vecFeasibleTeams[i];
+				if (team_G.ATD(t, 0) > maxFeasG)
+				{
+					maxFeasG = team_G.ATD(t, 0);
+					bestFeasTeam = t;
+					hoverBest = team_hover[t];
+					//maxG.ATD(r, 0) = G;
+					//genOfMax.at<int>(r, 0) = g;
+				}
+			}
+					
+			if (bestFeasTeam != -1)
+			{
+				assign_mat(actions, team_actions, -1, -1, -1, -1, -1, -1, bestFeasTeam, bestFeasTeam);
+				battery = design_battery(actions, data.batteryData);
+				motor = design_motor(actions, data.motorData);
+				prop = design_prop(actions, data.foilData);
+				foil = design_foil(actions, data.foilData);
+				rod = design_rod(actions, data.matData, prop);
+				sysBest = design_sys(battery, motor, foil, prop, rod);
+
+				update_states(ccea.statesPtrs, hoverBest, cv::Mat(), sysBest, stateMode);
 				//maxFlightTime.ATD(r, 0) = team_flightTime.ATD(bestTeam, 0);
 			}
+
+			ccea.ReformPopulations();
+			ccea.SelectFittest();
 			
-			std::cout << r << ", " << g << ": " << G << "; " << numFeasible << std::endl;
+			std::cout << r << ", " << g << ": " << currBestFeas << ", G - " << G << "; " << numFeasible << std::endl;
 		}
 	}
 
@@ -1088,14 +1236,17 @@ void run_experiment(sPenalty penalty, int numGens, int numRuns, int popSize, int
 	cv::Mat avgG = mean_double(G_hist, 0);
 	cv::Mat avgFlight = mean_double(flightTime_hist, 0);
 	cv::Mat avgNumFeas = vector_to_Mat_double(numFeasibleAvg);
+	cv::Mat avgGFeas = mean_double(currBestFeas_hist, 0);
 
 	std::string strAvgGFile = "avgG" + to_str<int>(stateMode) + ".csv";
 	std::string strAvgFlightFile = "avgFlight" + to_str<int>(stateMode) + ".csv";
 	std::string strAvgNumFeasFile = "avgNumFeas" + to_str<int>(stateMode) + ".csv";
+	std::string strAvgGFeas = "avgGFeas" + to_str<int>(stateMode) + ".csv";
 	
 	write_mjo(strAvgGFile, avgG/60.0);
 	write_mjo(strAvgFlightFile, avgFlight/60.0);
 	write_mjo(strAvgNumFeasFile, avgNumFeas);
+	write_mjo(strAvgGFeas, avgGFeas/60.0);
 }
 
 void write_mjo(std::string filename, cv::Mat dataVector)
